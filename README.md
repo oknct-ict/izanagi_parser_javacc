@@ -21,3 +21,9 @@ javaccで書かれたizanagi言語のパーサーです
 * auto.pyがあるディレクトリで「python auto.py compile」と入力します
 * コンパイル後に「python auto.py run」と入力すると実行する事ができますant
   
+例
+============
+入力:1+2+3  
+出力:value=6, type=1
+
+valueが結果です。typeは無視して下さい。
