@@ -6,8 +6,12 @@ import java.io.*;
 
 public class Expr implements ExprParserVisitor
 {
+	private final ShellVars mVars;
+
 	public static void main(String[] args) throws ParseException, IOException 
 	{
+		mVars = new ShellVars();
+
 		InputStreamReader in = new InputStreamReader(System.in);
 		BufferedReader reader = new BufferedReader(in);
 		String line;
@@ -31,15 +35,22 @@ public class Expr implements ExprParserVisitor
 
 	public Object visit(ASTDimStmt node, Object data)
 	{
+		String type = node.nodeValue;
+		ShellValue value = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
 
+		value.setType(type);
+
+		mVars.dump();
 	}
 	public Object visit(ASTVar node, Object data)
 	{
-		ShellValue value = ShellValue(node.nodeValue, ShellValue.TYPE_STRING));
+		String name = node.nodeValue;
+		ShellValue value = new ShellValue(name, ShellValue.TYPE_NONE);
+		
+		ShellValue shellValue = new ShellValue(name, value);
+		mVars.set(name, shellValue);
 
-	}
-	public Object visit(ASTVarArray node, Object data)
-	{
+		return (shellValue);
 	}
 
 	public Object visit(ASTEq node, Object data)
