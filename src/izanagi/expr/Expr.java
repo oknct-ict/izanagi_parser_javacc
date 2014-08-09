@@ -29,6 +29,19 @@ public class Expr implements ExprParserVisitor
 		return (node.jjtGetChild(0).jjtAccept(this, null));
 	}
 
+	public Object visit(ASTDimStmt node, Object data)
+	{
+
+	}
+	public Object visit(ASTVar node, Object data)
+	{
+		ShellValue value = ShellValue(node.nodeValue, ShellValue.TYPE_STRING));
+
+	}
+	public Object visit(ASTVarArray node, Object data)
+	{
+	}
+
 	public Object visit(ASTEq node, Object data)
 	{
 		ShellValue left = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
