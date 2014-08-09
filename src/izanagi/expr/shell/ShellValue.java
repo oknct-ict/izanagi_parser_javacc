@@ -8,6 +8,12 @@ public class ShellValue
 	public static final int TYPE_STRING = 3;
 	public static final int TYPE_BOOLEAN = 4;
 
+	private static final String TYPE_STRING_NONE= "None";
+	private static final String TYPE_STRING_INTEGER = "Integer";
+	private static final String TYPE_STRING_FLOAT = "Float";
+	private static final String TYPE_STRING_STRING = "String";
+	private static final String TYPE_STRING_BOOLEAN = "Boolean";
+
 	private String mValue;
 	private int mType;
 
@@ -42,7 +48,39 @@ public class ShellValue
 	}
 	public void setType(int type)
 	{
+		if (mType != TYPE_NONE){
+			switch (type){
+				case TYPE_INTEGER:
+					Integer value1 = Integer.valueOf(mValue);
+					mValue = value1.toString();
+					break;
+
+				case TYPE_FLOAT:
+					Float value2 = Float.valueOf(mValue);
+					mValue = value2.toString();
+					break;
+			}
+		}
+
 		mType = type;
+	}
+	public void setType(String type)
+	{
+		if (type.equals(TYPE_STRING_NONE)){
+			setType(TYPE_NONE);
+		}
+		else if (type.equals(TYPE_STRING_INTEGER)){
+			setType(TYPE_INTEGER);
+		}
+		else if (type.equals(TYPE_STRING_FLOAT)){
+			setType(TYPE_FLOAT);
+		}
+		else if (type.equals(TYPE_STRING_STRING)){
+			setType(TYPE_STRING);
+		}
+		else if (type.equals(TYPE_STRING_BOOLEAN)){
+			setType(TYPE_BOOLEAN);
+		}
 	}
 
 	public boolean isNone()
