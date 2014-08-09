@@ -24,12 +24,8 @@ TOKEN:
 		<DIM: "Dim">
 	|	<AS: "as">
 	|	<ASSIGN: "=">
-	|	<DIGIT: ["0"-"9"]>
-	|	<LOWERCASE: ["a"-"z"]>
-	|	<UPPERCASE: ["A"-"Z"]>
-	|	<LETTER: <LOWERCASE> | <UPPERCASE>>
-	|	<IDENTIFIER: (<LETTER> | "_")(<LETTER> | <DIGIT> | "_")>
 	|	<TYPE: ("Integer" | "Float" | "String")>
+	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
 TOKEN:
 {
@@ -92,21 +88,20 @@ void DimStmt():
 void Var():
 { Token t;}
 {
-		VarArray()
-	|	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+		t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
 }
 
-void VarArray():
-{}
-{
-	t = <IDENTIFIER> {jjtThis.nodeValue = t.image}
-	<LPAREN> ExpressionList() <RpAREN> 
-}
+//void VarArray():
+//{}
+//{
+//	t = <IDENTIFIER> {jjtThis.nodeValue = t.image}
+//	<LPAREN> ExpressionList() <RpAREN> 
+//}
 
 void ExpressionList() #void:
 {}
 {
-	Expression() (<COMMA> Expression)*
+	Expression() (<COMMA> Expression())*
 }
 
 void Expression() #void:
