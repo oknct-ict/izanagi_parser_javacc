@@ -23,7 +23,7 @@ javaccで書かれたizanagi言語のパーサーです
   
 例
 ============
-入力:1+2+3  
-出力:value=6, type=1
+入力:Dim hoge as Integer  
 
-valueが結果です。typeは無視して下さい。
+入力:hoge = 1 + 2
+
