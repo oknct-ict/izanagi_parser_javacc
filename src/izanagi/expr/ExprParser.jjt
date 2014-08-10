@@ -23,6 +23,11 @@ TOKEN:
 {
 		<DIM: "Dim">
 	|	<AS: "as">
+	|	<IF: "IF">
+	|	<THEN: "Then">
+	|	<ELSEIF: "ElseIf">
+	|	<ELSE: "Else">
+	|	<ENDIF: "End If">
 	|	<TYPE: ("Integer" | "Float" | "String")>
 	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
@@ -81,8 +86,41 @@ TOKEN:
 ASTStart Start():
 {}
 {
-		Expression() { return jjtThis;}
-	|	DimStmt() { return jjtThis;}
+	Stmts() <EOF> {return jjtThis;}
+}
+
+void Stmts():
+{}
+{
+	(Stmt())+
+}
+
+void Block():
+{}
+{
+	(Stmt())+
+}
+
+void Stmt():
+{}
+{
+		IfStmt() 
+	|	DimStmt() 
+	|	Expression() 
+}
+
+void IfStmt():
+{ Token t;}
+{
+	<IF> <LPAREN> CompExpr() <RPAREN> <THEN>
+		Block()
+	(<ELSEIF> <LPAREN> CompExpr() <RPAREN> <THEN>
+		Block()
+	)*
+	(<ELSE>
+		Block()
+	)?
+	<ENDIF>
 }
 
 void DimStmt():
