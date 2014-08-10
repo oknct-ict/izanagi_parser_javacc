@@ -22,12 +22,9 @@ SKIP:
 TOKEN:
 {
 		<DIM: "Dim">
-	|	<ASSIGN: "=">
-	|	<DIGIT: ["0"-"9"]>
-	|	<LOWERCASE: ["a"-"z"]>
-	|	<UPPERCASE: ["A"-"Z"]>
-	|	<LETTER: LOWERCASE | UPPERCASE>
-	|	<IDENTIFIER: (LETTER | "_")(LETTER | DIGIT | "_")>
+	|	<AS: "as">
+	|	<TYPE: ("Integer" | "Float" | "String")>
+	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
 TOKEN:
 {
@@ -46,8 +43,16 @@ TOKEN:
 	|	<LT: "<">
 	|	<EQ: "==">
 	|	<NEQ: "!=">
+	|	<ASSIGN: "=">
+	|	<ADDASSIGN: "+=">
+	|	<SUBASSIGN: "-=">
+	|	<MULASSIGN: "*=">
+	|	<DIVASSIGN: "/=">
+	|	<MODASSIGN: "%=">
+	|	<POWASSIGN: "^=">
 	|	<LPAREN: "(">
 	|	<RPAREN: ")">
+	|	<COMMA: ",">
 	|	<STR_START: "\""> : IN_STR
 	|   <INTEGER: (["0" - "9"])+>
 	|	<FLOAT: (["0" - "9"])+ "." (["0" - "9"])+>
@@ -80,13 +85,51 @@ ASTStart Start():
 	|	DimStmt() { return jjtThis;}
 }
 
-void DimStmt()
+void DimStmt():
+{ Token t;}
+{
+	<DIM> Var() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;} 
+}
+
+void Var():
+{ Token t;}
+{
+		t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+}
+
+//void VarArray():
+//{}
+//{
+//	t = <IDENTIFIER> {jjtThis.nodeValue = t.image}
+//	<LPAREN> ExpressionList() <RpAREN> 
+//}
+
+void ExpressionList() #void:
 {}
 {
-
+	Expression() (<COMMA> Expression())*
 }
 
 void Expression() #void:
+{}
+{
+	AssignExpr()
+}
+
+void AssignExpr() #void:
+{}
+{
+	Var() (
+				<ASSIGN> EqualCompExpr() #Assign(2)
+			|	<ADDASSIGN> EqualCompExpr() #AddAssign(2)
+			|	<SUBASSIGN> EqualCompExpr() #SubAssign(2)
+			|	<MULASSIGN> EqualCompExpr() #MulAssign(2)
+			|	<DIVASSIGN> EqualCompExpr() #DivAssign(2)
+			|	<MODASSIGN> EqualCompExpr() #ModAssign(2)
+			|	<POWASSIGN> EqualCompExpr() #PowAssign(2) )
+}
+
+void CompExpr() #void:
 {}
 {
 	EqualCompExpr()
@@ -145,6 +188,7 @@ void Literal() #void:
 	|	Float()
 	|	String()
 	|	<LPAREN> AddExpr() <RPAREN>
+	|	RefVar()
 }
 
 void Integer():
@@ -164,4 +208,10 @@ void String():
 {
 	<STR_START>
 	t = <STR> {jjtThis.nodeValue = t.image;}
+}
+
+void RefVar():
+{ Token t;}
+{
+	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
 }
