@@ -1,6 +1,7 @@
 Dim hoge as Integer
 hoge = 1
-Print hoge
-If (hoge == 1) Then
+While hoge < 10
 	Print hoge
-End If
+	hoge += 1
+End While
+
