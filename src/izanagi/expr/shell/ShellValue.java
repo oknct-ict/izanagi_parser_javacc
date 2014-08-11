@@ -49,16 +49,19 @@ public class ShellValue
 	public void setType(int type)
 	{
 		if (mType != TYPE_NONE){
-			switch (type){
-				case TYPE_INTEGER:
-					Integer value1 = Integer.valueOf(mValue);
-					mValue = value1.toString();
-					break;
-
-				case TYPE_FLOAT:
-					Float value2 = Float.valueOf(mValue);
-					mValue = value2.toString();
-					break;
+			if (mType == TYPE_INTEGER){
+				if (type == TYPE_FLOAT){
+					Integer _old = Integer.valueOf(mValue);
+					Float _new = Float.valueOf(_old.floatValue());
+					mValue = _new.toString();
+				}
+			}
+			else if(mType == TYPE_FLOAT){
+				if (type == TYPE_INTEGER){
+					Float _old = Float.valueOf(mValue);
+					Integer _new = Integer.valueOf(_old.intValue());
+					mValue = _new.toString();
+				}
 			}
 		}
 

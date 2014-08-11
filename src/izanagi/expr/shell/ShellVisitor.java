@@ -92,9 +92,14 @@ public class ShellVisitor implements ExprParserVisitor
 		value.setType(type);
 		mVars.set(name, value);
 
-		System.out.println("mVars dump---------");
-		mVars.dump();
-		System.out.println("mVars dump---------");
+		return (value);
+	}
+
+	public Object visit(ASTPrintStmt node, Object data)
+	{
+		ShellValue value = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
+
+		System.out.println(value.getValue());
 
 		return (value);
 	}
@@ -103,6 +108,9 @@ public class ShellVisitor implements ExprParserVisitor
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
 		ShellValue value = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		int type = mVars.get(name).getType();
+		value.setType(type);
 
 		mVars.set(name, value);
 
@@ -113,6 +121,9 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		int type = mVars.get(name).getType();
+		right.setType(type);
 
 		left.add(right);
 
@@ -126,6 +137,9 @@ public class ShellVisitor implements ExprParserVisitor
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
+		int type = mVars.get(name).getType();
+		right.setType(type);
+
 		left.sub(right);
 
 		mVars.set(name, left);
@@ -137,6 +151,9 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		int type = mVars.get(name).getType();
+		right.setType(type);
 
 		left.mul(right);
 
@@ -150,6 +167,9 @@ public class ShellVisitor implements ExprParserVisitor
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
+		int type = mVars.get(name).getType();
+		right.setType(type);
+
 		left.div(right);
 
 		mVars.set(name, left);
@@ -162,6 +182,9 @@ public class ShellVisitor implements ExprParserVisitor
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
+		int type = mVars.get(name).getType();
+		right.setType(type);
+
 		left.mod(right);
 
 		mVars.set(name, left);
@@ -173,6 +196,9 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
 		ShellValue left = mVars.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		int type = mVars.get(name).getType();
+		right.setType(type);
 
 		left.power(right);
 
@@ -366,11 +392,9 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = node.nodeValue;
 		
 		if (mVars.usedName(name)){
-			System.out.println("exist var");
 			return (mVars.get(name).getValue());
 		}
 		else {
-			System.out.println("not exist var");
 			ShellValue shellValue = new ShellValue("", ShellValue.TYPE_NONE);
 			return (shellValue);
 		}
