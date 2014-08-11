@@ -12,13 +12,14 @@ public class Expr
 		InputStreamReader in = new InputStreamReader(System.in);
 		BufferedReader reader = new BufferedReader(in);
 		String line;
-		while ((line = reader.readLine()) != null){
-			ExprParser parser = new ExprParser(new StringReader(line));
+		//while ((line = reader.readLine()) != null){
+			//ExprParser parser = new ExprParser(new StringReader(line));
 			//File file = new File("Shell.txt");
+			ExprParser parser = new ExprParser(new FileReader("Shell.txt"));
 			ShellVisitor visitor = new ShellVisitor();
 			ASTStart start = parser.Start();
 			System.out.println(start.jjtAccept(visitor, null));
-		}
+		//}
 	}
 
 

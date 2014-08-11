@@ -16,6 +16,11 @@ public class ShellVar
 		setValue(shellValue);
 	}
 
+	public int getType()
+	{
+		return (mValue.getType());
+	}
+
 	public String getName()
 	{
 		return (mName);

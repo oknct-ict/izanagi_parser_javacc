@@ -26,12 +26,9 @@ public class ShellVars
 	{
 		if (mVar.containsKey(name)){
 			ShellVar var = mVar.get(name);
-			int type = var.getValue().getType();
-			shellValue.setType(type);
 			var.setValue(shellValue);
 		}
 		else {
-			System.out.println("new var");
 			mVar.put(name, new ShellVar(name, shellValue));
 		}
 	}
