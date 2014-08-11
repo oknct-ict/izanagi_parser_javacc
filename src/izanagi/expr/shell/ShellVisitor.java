@@ -408,8 +408,8 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = node.nodeValue;
 		
 		if (mVars.usedName(name)){
-			ShellValue value = new ShellValue(mVars.get(name).getValue());
-			return (mVars.get(name).getValue());
+			ShellValue shellValue = new ShellValue(mVars.get(name).getValue());
+			return (shellValue);
 		}
 		else {
 			ShellValue shellValue = new ShellValue("", ShellValue.TYPE_NONE);
