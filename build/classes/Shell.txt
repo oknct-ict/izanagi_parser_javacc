@@ -1,3 +1,6 @@
-Dim abc as Integer
-abc = 0
-abc = abc + 1
+Dim hoge as Integer
+hoge = 1
+Print hoge
+If (hoge == 1) Then
+	Print hoge
+End If

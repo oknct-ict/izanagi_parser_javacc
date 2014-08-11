@@ -83,6 +83,22 @@ public class ShellVisitor implements ExprParserVisitor
 		return (null);
 	}
 
+	public Object visit(ASTWhileStmt node, Object data)
+	{
+		//First child points while condition, send points while body
+
+		while (true){
+			ShellValue shellValue = (ShellValue)node.jjtGetChild(0).jjtAccept(this, data);
+			if (shellValue.getValue().equals("" + false)){
+				break;
+			}
+
+			node.jjtGetChild(1).jjtAccept(this, null);
+		}
+
+		return (null);
+	}
+
 	public Object visit(ASTDimStmt node, Object data)
 	{
 		String type = node.nodeValue;
@@ -392,6 +408,7 @@ public class ShellVisitor implements ExprParserVisitor
 		String name = node.nodeValue;
 		
 		if (mVars.usedName(name)){
+			ShellValue value = new ShellValue(mVars.get(name).getValue());
 			return (mVars.get(name).getValue());
 		}
 		else {
