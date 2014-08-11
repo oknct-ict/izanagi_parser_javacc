@@ -4,7 +4,7 @@ options{
 	MULTI=true;
 	VISITOR=true;
 	NODE_EXTENDS="izanagi.expr.BaseNode";
-	DEBUG_PARSER = false;
+	DEBUG_PARSER = true;
 }
 
 //パーサークラスの定義
@@ -26,6 +26,8 @@ TOKEN:
 	|	<ELSEIF: "ElseIf">
 	|	<ELSE: "Else">
 	|	<ENDIF: "End If">
+	|	<WHILE: "While">
+	|	<ENDWHILE: "End While">
 	|	<DIM: "Dim">
 	|	<AS: "as">
 	|	<PRINT: "Print">
@@ -124,6 +126,14 @@ void IfStmt():
 		Block()
 	)?
 	<ENDIF>
+}
+
+void WhileStmt():
+{}
+{
+	<WHILE> [<LPAREN>] CompExpr() [<RPAREN>]
+		Block()
+	<ENDWHILE>
 }
 
 void DimStmt():
