@@ -4,7 +4,7 @@ options{
 	MULTI=true;
 	VISITOR=true;
 	NODE_EXTENDS="izanagi.expr.BaseNode";
-	DEBUG_PARSER = true;
+	DEBUG_PARSER = false;
 }
 
 //パーサークラスの定義
@@ -21,13 +21,14 @@ SKIP:
 }
 TOKEN:
 {
-		<DIM: "Dim">
-	|	<AS: "as">
-	|	<IF: "IF">
+		<IF: "If">
 	|	<THEN: "Then">
 	|	<ELSEIF: "ElseIf">
 	|	<ELSE: "Else">
 	|	<ENDIF: "End If">
+	|	<DIM: "Dim">
+	|	<AS: "as">
+	|	<PRINT: "Print">
 	|	<TYPE: ("Integer" | "Float" | "String")>
 	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
@@ -86,7 +87,7 @@ TOKEN:
 ASTStart Start():
 {}
 {
-	Stmts() <EOF> {return jjtThis;}
+	Stmts() <EOF> { return jjtThis;}
 }
 
 void Stmts():
@@ -105,8 +106,10 @@ void Stmt():
 {}
 {
 		IfStmt() 
+	|	WhileStmt()
 	|	DimStmt() 
-	|	Expression() 
+	|	PrintStmt()
+	|	LOOKAHEAD(2) Expression() 
 }
 
 void IfStmt():
@@ -129,11 +132,12 @@ void DimStmt():
 	<DIM> Var() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;} 
 }
 
-void Var():
-{ Token t;}
+void PrintStmt():
+{}
 {
-		t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+	<PRINT> CompExpr()
 }
+
 
 //void VarArray():
 //{}
@@ -246,6 +250,12 @@ void String():
 {
 	<STR_START>
 	t = <STR> {jjtThis.nodeValue = t.image;}
+}
+
+void Var():
+{ Token t;}
+{
+		t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
 }
 
 void RefVar():
