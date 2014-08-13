@@ -28,11 +28,15 @@ TOKEN:
 	|	<ENDIF: "End If">
 	|	<WHILE: "While">
 	|	<ENDWHILE: "End While">
+	|	<SELECT: "Select">
+	|	<COLON: ":">
+	|	<CASE: "Case">
+	|	<CASEELSE: "Case Else">
+	|	<ENDSELECT: "End Select">
 	|	<DIM: "Dim">
 	|	<AS: "as">
 	|	<PRINT: "Print">
 	|	<TYPE: ("Integer" | "Float" | "String")>
-	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
 TOKEN:
 {
@@ -64,6 +68,7 @@ TOKEN:
 	|	<STR_START: "\""> : IN_STR
 	|   <INTEGER: (["0" - "9"])+>
 	|	<FLOAT: (["0" - "9"])+ "." (["0" - "9"])+>
+	|	<IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")*>
 }
 
 <IN_STR> MORE:
@@ -109,6 +114,7 @@ void Stmt():
 {
 		IfStmt() 
 	|	WhileStmt()
+	|	SelectStmt()
 	|	DimStmt() 
 	|	PrintStmt()
 	|	LOOKAHEAD(2) Expression() 
@@ -131,9 +137,21 @@ void IfStmt():
 void WhileStmt():
 {}
 {
-	<WHILE> [<LPAREN>] CompExpr() [<RPAREN>]
+	<WHILE> CompExpr() 
 		Block()
 	<ENDWHILE>
+}
+
+void SelectStmt():
+{}
+{
+	<SELECT> CompExpr() 
+		(<CASE> CompExpr() <COLON>
+			Block())+
+
+		(<CASEELSE>  <COLON>
+			Block())?
+	<ENDSELECT>
 }
 
 void DimStmt():
