@@ -60,7 +60,7 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTIfStmt node, Object data)
 	{
 		//First child points if condition, second points if body,
-		//therd points elseif condition, fourth points elseif body,
+		//third points elseif condition, fourth points elseif body,
 		//and the last child points else body
 
 		int size;
@@ -85,7 +85,7 @@ public class ShellVisitor implements ExprParserVisitor
 
 	public Object visit(ASTWhileStmt node, Object data)
 	{
-		//First child points while condition, send points while body
+		//First child points while condition, second points while body
 
 		while (true){
 			ShellValue shellValue = (ShellValue)node.jjtGetChild(0).jjtAccept(this, data);
@@ -94,6 +94,32 @@ public class ShellVisitor implements ExprParserVisitor
 			}
 
 			node.jjtGetChild(1).jjtAccept(this, null);
+		}
+
+		return (null);
+	}
+
+	public Object visit(ASTSelectStmt node, Object data)
+	{
+		//First child points select condition, second points case condition
+		//third points seca body, and last case else body
+
+		int size;
+		size = node.jjtGetNumChildren();
+
+		ShellValue oriValue = (ShellValue)node.jjtGetChild(0).jjtAccept(this, data);
+		for (int i = 1; i < size - 1; i += 2){
+			ShellValue shellValue = (ShellValue)node.jjtGetChild(i).jjtAccept(this, data);
+			String value = shellValue.getValue();
+
+			if (oriValue.EQ(shellValue)){
+				node.jjtGetChild(i + 1).jjtAccept(this, null);
+				return (shellValue);
+			}
+		}
+
+		if (size % 2 == 0){
+			node.jjtGetChild(size - 1).jjtAccept(this, null);
 		}
 
 		return (null);

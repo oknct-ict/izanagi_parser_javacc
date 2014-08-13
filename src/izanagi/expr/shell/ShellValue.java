@@ -102,7 +102,7 @@ public class ShellValue
 	{
 		return (mType == TYPE_STRING);
 	}
-	public boolean isBOOLEAN()
+	public boolean isBoolean()
 	{
 		return (mType == TYPE_BOOLEAN);
 	}
@@ -256,7 +256,6 @@ public class ShellValue
 	}
 	public boolean EQ(ShellValue v)
 	{
-		setType(TYPE_BOOLEAN);
 
 		if (getType() == TYPE_BOOLEAN && v.getType() == TYPE_BOOLEAN){
 			Boolean left = Boolean.valueOf(getValue());
@@ -267,7 +266,16 @@ public class ShellValue
 			else {
 				setValue("" + false);
 			}
-			return (Boolean.valueOf(getValue()));
+		}
+		else if (isString() && v.isString()){
+			String left = getValue();
+			String right = v.getValue();
+			if (left.equals(right)){
+				setValue("" + true);
+			}
+			else {
+				setValue("" + false);
+			}
 		}
 		else if (isFloat() || v.isFloat()){
 			Float left = Float.valueOf(getValue());
@@ -278,17 +286,19 @@ public class ShellValue
 			else {
 				setValue("" + false);
 			}
-			return (Boolean.valueOf(getValue()));
-		}
-		
-		Integer left = Integer.valueOf(getValue());
-		Integer right = Integer.valueOf(v.getValue());
-		if (left.equals(right)){
-			setValue("" + true);
 		}
 		else {
-			setValue("" + false);
+			Integer left = Integer.valueOf(getValue());
+			Integer right = Integer.valueOf(v.getValue());
+			if (left.equals(right)){
+				setValue("" + true);
+			}
+			else {
+				setValue("" + false);
+			}
 		}
+
+		setType(TYPE_BOOLEAN);
 		return (Boolean.valueOf(getValue()));
 	}
 	public boolean NEQ(ShellValue v)

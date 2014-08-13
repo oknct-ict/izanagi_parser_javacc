@@ -1,7 +1,19 @@
 Dim hoge as Integer
+Dim fuga as String
+
+fuga = "str"
+Print fuga
 hoge = 1
-While hoge < 10
-	Print hoge
-	hoge += 1
-End While
+Select fuga
+	Case "str":
+		Print "OK"
+	
+	Case "strr":
+		Print "NG"
+	
+	Case Else:
+		Print "Else"
+End Select
+
+
 
