@@ -8,12 +8,14 @@ public class ShellVisitor implements ExprParserVisitor
 {
 	private final ShellVars mVars;
 	private boolean mBreak;
+	private boolean mContinue;
 
 	public ShellVisitor()
 	{
 		//mVars = new ShellVars();
 		mVars = ShellVars.getInstance();
 		mBreak = false;
+		mContinue = false;
 	}
 
 	public Object visit(SimpleNode node, Object data)
@@ -62,6 +64,10 @@ public class ShellVisitor implements ExprParserVisitor
 	{
 		int size = node.jjtGetNumChildren();
 		for (int i = 0; i < size; i++){
+			if (mContinue == true){
+				mContinue = false;
+				break;
+			}
 			if (mBreak == true){
 				break;
 			}
@@ -160,6 +166,13 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTBreakStmt node, Object data)
 	{
 		mBreak = true;
+
+		return (null);
+	}
+
+	public Object visit(ASTContinueStmt node, Object data)
+	{
+		mContinue = true;
 
 		return (null);
 	}
