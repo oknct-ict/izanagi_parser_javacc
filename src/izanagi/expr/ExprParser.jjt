@@ -57,6 +57,8 @@ TOKEN:
 	|	<LT: "<">
 	|	<EQ: "==">
 	|	<NEQ: "!=">
+	|	<BOOLAND: "&&">
+	|	<BOOLOR: "||">
 	|	<ASSIGN: "=">
 	|	<ADDASSIGN: "+=">
 	|	<SUBASSIGN: "-=">
@@ -224,7 +226,15 @@ void AssignExpr() #void:
 void CompExpr() #void:
 {}
 {
-	EqualCompExpr()
+	BoolCompExpr()
+}
+
+void BoolCompExpr() #void:
+{}
+{
+	EqualCompExpr() (
+				<BOOLAND> EqualCompExpr() #BAnd(2)
+			|	<BOOLOR> EqualCompExpr() #BOr(2) )*
 }
 
 void EqualCompExpr() #void:
