@@ -289,6 +289,25 @@ public class ShellVisitor implements ExprParserVisitor
 		return (mVars.get(name).getValue());
 	}
 
+	public Object visit(ASTBAnd node, Object data)
+	{
+		ShellValue left = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
+		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		left.BAnd(right);
+
+		return (left);
+	}
+	public Object visit(ASTBOr node, Object data)
+	{
+		ShellValue left = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
+		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+
+		left.BOr(right);
+
+		return (left);
+	}
+
 	public Object visit(ASTEq node, Object data)
 	{
 		ShellValue left = (ShellValue)node.jjtGetChild(0).jjtAccept(this, null);
