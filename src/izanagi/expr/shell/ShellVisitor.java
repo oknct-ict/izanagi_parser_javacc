@@ -7,11 +7,13 @@ import java.io.*;
 public class ShellVisitor implements ExprParserVisitor
 {
 	private final ShellVars mVars;
+	private boolean mBreak;
 
 	public ShellVisitor()
 	{
 		//mVars = new ShellVars();
 		mVars = ShellVars.getInstance();
+		mBreak = false;
 	}
 
 	public Object visit(SimpleNode node, Object data)
@@ -56,6 +58,19 @@ public class ShellVisitor implements ExprParserVisitor
 		ShellValue returnValue = new ShellValue("" + size, ShellValue.TYPE_INTEGER);
 		return (returnValue);
 	}
+	public Object visit(ASTWhileBlock node, Object data)
+	{
+		int size = node.jjtGetNumChildren();
+		for (int i = 0; i < size; i++){
+			if (mBreak == true){
+				break;
+			}
+			node.jjtGetChild(i).jjtAccept(this, null);
+		}
+		
+		ShellValue returnValue = new ShellValue("" + size, ShellValue.TYPE_INTEGER);
+		return (returnValue);
+	}
 
 	public Object visit(ASTIfStmt node, Object data)
 	{
@@ -88,6 +103,11 @@ public class ShellVisitor implements ExprParserVisitor
 		//First child points while condition, second points while body
 
 		while (true){
+			if (mBreak == true){
+				mBreak = false;
+				break;
+			}
+
 			ShellValue shellValue = (ShellValue)node.jjtGetChild(0).jjtAccept(this, data);
 			if (shellValue.getValue().equals("" + false)){
 				break;
@@ -135,6 +155,13 @@ public class ShellVisitor implements ExprParserVisitor
 		mVars.set(name, value);
 
 		return (value);
+	}
+
+	public Object visit(ASTBreakStmt node, Object data)
+	{
+		mBreak = true;
+
+		return (null);
 	}
 
 	public Object visit(ASTPrintStmt node, Object data)
