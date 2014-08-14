@@ -443,6 +443,29 @@ public class ShellValue
 		return (Boolean.valueOf(getValue()));
 	}
 
+	public boolean BAnd(ShellValue v)
+	{
+		Boolean left = Boolean.valueOf(getValue());
+		Boolean right = Boolean.valueOf(v.getValue());
+
+		boolean result;
+		result = left.booleanValue() && right.booleanValue();
+		setValue("" + result);
+
+		return (result);
+	}
+	public boolean BOr(ShellValue v)
+	{
+		Boolean left = Boolean.valueOf(getValue());
+		Boolean right = Boolean.valueOf(v.getValue());
+
+		boolean result;
+		result = left.booleanValue() || right.booleanValue();
+		setValue("" + result);
+
+		return (result);
+	}
+
 	@Override
 	public String toString()
 	{
