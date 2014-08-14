@@ -36,6 +36,7 @@ TOKEN:
 	|	<DIM: "Dim">
 	|	<AS: "as">
 	|	<BREAK: "Break">
+	|	<CONTINUE: "Continue">
 	|	<PRINT: "Print">
 	|	<TYPE: ("Integer" | "Float" | "String")>
 }
@@ -124,6 +125,7 @@ void Stmt():
 	|	SelectStmt()
 	|	DimStmt() 
 	|	BreakStmt()
+	|	ContinueStmt()
 	|	PrintStmt()
 	|	LOOKAHEAD(2) Expression() 
 }
@@ -172,6 +174,12 @@ void BreakStmt():
 {}
 {
 	<BREAK>
+}
+
+void ContinueStmt():
+{}
+{
+	<CONTINUE>
 }
 
 void PrintStmt():
