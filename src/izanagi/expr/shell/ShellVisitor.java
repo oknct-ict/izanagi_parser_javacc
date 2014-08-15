@@ -580,9 +580,7 @@ public class ShellVisitor implements ExprParserVisitor
 
 	public Object visit(ASTFuncName node, Object data)
 	{
-		System.out.println("ASTFuncName start");
 		String name = node.nodeValue;
-		System.out.println("ASTFuncName:" + name);
 
 		return (name);
 	}
