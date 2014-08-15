@@ -21,7 +21,9 @@ SKIP:
 }
 TOKEN:
 {
-		<IF: "If">
+		<FUNC: "Function">
+	|	<ENDFUNC: "End Function">
+	|	<IF: "If">
 	|	<THEN: "Then">
 	|	<ELSEIF: "ElseIf">
 	|	<ELSE: "Else">
@@ -119,10 +121,31 @@ void WhileBlock():
 	(Stmt())+
 }
 
+void FuncBlock():
+{}
+{
+	(Stmt())+
+}
+
+void Arguments():
+{}
+{
+	<LPAREN> 
+			(<RPAREN>
+		|	Argument() (<COMMA> Argument())* <RPAREN>)
+}
+
+void Argument():
+{ Token t;}
+{
+	Var() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;}
+}
+
 void Stmt():
 {}
 {
-		IfStmt() 
+		DefFunc()
+	|	IfStmt() 
 	|	WhileStmt()
 	|	SelectStmt()
 	|	DimStmt() 
@@ -130,6 +153,23 @@ void Stmt():
 	|	ContinueStmt()
 	|	PrintStmt()
 	|	LOOKAHEAD(2) Expression() 
+	|	LOOKAHEAD(2) CallFunc()
+}
+
+void DefFunc():
+{ Token t;}
+{
+	<FUNC> FuncName() Arguments() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;}
+		FuncBlock()
+	<ENDFUNC>
+} 
+
+void CallFunc():
+{}
+{
+	FuncName() <LPAREN> 
+				(<RPAREN>
+			|	CompExpr() (<COMMA> CompExpr())* <RPAREN>)
 }
 
 void IfStmt():
@@ -319,6 +359,12 @@ void Var():
 }
 
 void RefVar():
+{ Token t;}
+{
+	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+}
+
+void FuncName():
 { Token t;}
 {
 	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
