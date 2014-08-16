@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ShellVisitor implements ExprParserVisitor
 {
-	private final ShellVars mVars;
+	private final ShellVarsManager mVarsMng;
 	private final ShellFuncs mFuncs;
 	private boolean mBreak;
 	private boolean mContinue;
@@ -15,7 +15,7 @@ public class ShellVisitor implements ExprParserVisitor
 	public ShellVisitor()
 	{
 		//mVars = new ShellVars();
-		mVars = ShellVars.getInstance();
+		mVarsMng = ShellVarsManager.getInstance();
 		mFuncs = ShellFuncs.getInstance();
 		mBreak = false;
 		mContinue = false;
@@ -83,10 +83,12 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTFuncBlock node, Object data)
 	{
 		int size = node.jjtGetNumChildren();
+
 		for (int i = 0; i < size; i++){
 			node.jjtGetChild(i).jjtAccept(this, null);
 		}
-		
+
+		mVarsMng.outFunc();
 		ShellValue returnValue = new ShellValue("" + size, ShellValue.TYPE_INTEGER);
 		return (returnValue);
 	}
@@ -125,8 +127,9 @@ public class ShellVisitor implements ExprParserVisitor
 			return (null);
 		}
 		
+		mVarsMng.intoFunc();
 		for (int i = 0; i < valueList.size(); i++){
-			mVars.set(argList.get(i).getName(), valueList.get(i));
+			mVarsMng.set(argList.get(i).getName(), valueList.get(i));
 		}
 
 		visit(shellFunc.getBlock(), data);
@@ -213,7 +216,7 @@ public class ShellVisitor implements ExprParserVisitor
 		ShellValue value = new ShellValue("", ShellValue.TYPE_NONE);
 
 		value.setType(type);
-		mVars.set(name, value);
+		mVarsMng.set(name, value);
 
 		return (value);
 	}
@@ -244,104 +247,105 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue value = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
+		ShellValue left = mVarsMng.get(name).getValue();
+		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
-		value.setType(type);
+		int type = left.getType();
+		right.setType(type);
 
-		mVars.set(name, value);
+		mVarsMng.set(name, right);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTAddAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.add(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTSubAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.sub(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTMulAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.mul(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTDivAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.div(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTModAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.mod(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 	public Object visit(ASTPowAssign node, Object data)
 	{
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		ShellValue left = mVars.get(name).getValue();
+		ShellValue left = mVarsMng.get(name).getValue();
 		ShellValue right = (ShellValue)node.jjtGetChild(1).jjtAccept(this, null);
 
-		int type = mVars.get(name).getType();
+		int type = left.getType();
 		right.setType(type);
 
 		left.power(right);
 
-		mVars.set(name, left);
+		mVarsMng.set(name, left);
 
-		return (mVars.get(name).getValue());
+		return (mVarsMng.get(name).getValue());
 	}
 
 	public Object visit(ASTBAnd node, Object data)
@@ -547,8 +551,8 @@ public class ShellVisitor implements ExprParserVisitor
 	{
 		String name = node.nodeValue;
 		
-		if (mVars.usedName(name)){
-			ShellValue shellValue = new ShellValue(mVars.get(name).getValue());
+		if (mVarsMng.usedName(name)){
+			ShellValue shellValue = new ShellValue(mVarsMng.get(name).getValue());
 			return (shellValue);
 		}
 		else {
