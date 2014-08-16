@@ -1,19 +1,6 @@
-Dim hoge as Integer
-Dim fuga as String
 
-fuga = "str"
-Print fuga
-hoge = 1
-Select fuga
-	Case "str":
-		Print "OK"
-	
-	Case "strr":
-		Print "NG"
-	
-	Case Else:
-		Print "Else"
-End Select
+Function sum(a as Integer, b as Integer) as Integer
+	Print a + b
+End Function
 
-
-
+sum(1, 2)

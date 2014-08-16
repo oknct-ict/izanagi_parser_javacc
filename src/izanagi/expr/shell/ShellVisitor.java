@@ -3,10 +3,12 @@ package izanagi.expr.shell;
 import izanagi.expr.parser.*;
 import izanagi.expr.shell.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ShellVisitor implements ExprParserVisitor
 {
 	private final ShellVars mVars;
+	private final ShellFuncs mFuncs;
 	private boolean mBreak;
 	private boolean mContinue;
 
@@ -14,6 +16,7 @@ public class ShellVisitor implements ExprParserVisitor
 	{
 		//mVars = new ShellVars();
 		mVars = ShellVars.getInstance();
+		mFuncs = ShellFuncs.getInstance();
 		mBreak = false;
 		mContinue = false;
 	}
@@ -76,6 +79,58 @@ public class ShellVisitor implements ExprParserVisitor
 		
 		ShellValue returnValue = new ShellValue("" + size, ShellValue.TYPE_INTEGER);
 		return (returnValue);
+	}
+	public Object visit(ASTFuncBlock node, Object data)
+	{
+		int size = node.jjtGetNumChildren();
+		for (int i = 0; i < size; i++){
+			node.jjtGetChild(i).jjtAccept(this, null);
+		}
+		
+		ShellValue returnValue = new ShellValue("" + size, ShellValue.TYPE_INTEGER);
+		return (returnValue);
+	}
+
+	public Object visit(ASTDefFunc node, Object data)
+	{
+		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
+		ShellArgs args = (ShellArgs)node.jjtGetChild(1).jjtAccept(this, null);
+		String type = node.nodeValue;
+		ASTFuncBlock block = (ASTFuncBlock)node.jjtGetChild(2);
+
+		ShellFunc func = new ShellFunc(name, args, type, block);
+		mFuncs.set(name, func);
+
+		return (null);
+	}
+	public Object visit(ASTCallFunc node, Object data)
+	{
+		int size = node.jjtGetNumChildren();
+		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
+		ShellFunc shellFunc = mFuncs.get(name);
+		ArrayList<ShellArg> argList = shellFunc.getArgs().getArgList();
+		ArrayList<ShellValue> valueList = new ArrayList<ShellValue>();
+
+		if (shellFunc == null){
+			System.out.println("定義されていない関数です");
+			return (null);
+		}
+
+		for (int i = 1; i < size; i++){
+			ShellValue value = (ShellValue)node.jjtGetChild(i).jjtAccept(this, null);
+			valueList.add(value);
+		}
+
+		if (shellFunc.checkArgs(valueList) == false){
+			return (null);
+		}
+		
+		for (int i = 0; i < valueList.size(); i++){
+			mVars.set(argList.get(i).getName(), valueList.get(i));
+		}
+
+		visit(shellFunc.getBlock(), data);
+		return (null);
 	}
 
 	public Object visit(ASTIfStmt node, Object data)
@@ -500,5 +555,33 @@ public class ShellVisitor implements ExprParserVisitor
 			ShellValue shellValue = new ShellValue("", ShellValue.TYPE_NONE);
 			return (shellValue);
 		}
+	}
+
+	public Object visit(ASTArguments node, Object data)
+	{
+		ShellArgs args = new ShellArgs();
+		int size = node.jjtGetNumChildren();
+
+		for (int i = 0; i < size; i++){
+			ShellArg arg = (ShellArg)node.jjtGetChild(i).jjtAccept(this, null);
+			args.add(arg);
+		}
+
+		return (args);
+	}
+	public Object visit(ASTArgument node, Object data)
+	{
+		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
+		String type = node.nodeValue;
+		ShellArg arg = new ShellArg(name, type);
+
+		return (arg);
+	}
+
+	public Object visit(ASTFuncName node, Object data)
+	{
+		String name = node.nodeValue;
+
+		return (name);
 	}
 }

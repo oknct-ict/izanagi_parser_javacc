@@ -8,11 +8,11 @@ public class ShellValue
 	public static final int TYPE_STRING = 3;
 	public static final int TYPE_BOOLEAN = 4;
 
-	private static final String TYPE_STRING_NONE= "None";
-	private static final String TYPE_STRING_INTEGER = "Integer";
-	private static final String TYPE_STRING_FLOAT = "Float";
-	private static final String TYPE_STRING_STRING = "String";
-	private static final String TYPE_STRING_BOOLEAN = "Boolean";
+	public static final String TYPE_STRING_NONE= "None";
+	public static final String TYPE_STRING_INTEGER = "Integer";
+	public static final String TYPE_STRING_FLOAT = "Float";
+	public static final String TYPE_STRING_STRING = "String";
+	public static final String TYPE_STRING_BOOLEAN = "Boolean";
 
 	private String mValue;
 	private int mType;
