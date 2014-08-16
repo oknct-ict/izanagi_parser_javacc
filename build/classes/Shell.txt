@@ -1,6 +1,16 @@
 
 Function sum(a as Integer, b as Integer) as Integer
 	Print a + b
+	Dim hoge as Integer
+	hoge = 1
+	Print hoge 
+End Function
+
+Function sub(a as Integer, b as Integer) as Integer
+	Print a - b
+	
+	Print hoge
 End Function
 
 sum(1, 2)
+sub(1, 2)

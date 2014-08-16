@@ -5,16 +5,11 @@ import java.util.Map;
 
 public class ShellVars
 {
-	private static ShellVars instance = new ShellVars();
 	private final HashMap<String, ShellVar> mVar;
 
-	private ShellVars()
+	public ShellVars()
 	{
 		mVar = new HashMap<String, ShellVar>();
-	}
-	public static ShellVars getInstance()
-	{
-		return (instance);
 	}
 
 	public ShellVar get(String name)
