@@ -37,6 +37,7 @@ TOKEN:
 	|	<ENDSELECT: "End Select">
 	|	<DIM: "Dim">
 	|	<AS: "as">
+	|	<RETURN: "Return">
 	|	<BREAK: "Break">
 	|	<CONTINUE: "Continue">
 	|	<PRINT: "Print">
@@ -152,8 +153,9 @@ void Stmt():
 	|	BreakStmt()
 	|	ContinueStmt()
 	|	PrintStmt()
-	|	LOOKAHEAD(2) Expression() 
+	|	LOOKAHEAD(2) ReturnStmt()
 	|	LOOKAHEAD(2) CallFunc()
+	|	LOOKAHEAD(2) Expression() 
 }
 
 void DefFunc():
@@ -228,6 +230,12 @@ void PrintStmt():
 {}
 {
 	<PRINT> CompExpr()
+}
+
+void ReturnStmt():
+{}
+{
+	<RETURN> CompExpr()
 }
 
 
@@ -330,7 +338,8 @@ void Literal() #void:
 	|	Float()
 	|	String()
 	|	<LPAREN> CompExpr() <RPAREN>
-	|	RefVar()
+	|	LOOKAHEAD(2) CallFunc()
+	|	LOOKAHEAD(2) RefVar()
 }
 
 void Integer():
