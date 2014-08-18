@@ -71,6 +71,8 @@ TOKEN:
 	|	<POWASSIGN: "^=">
 	|	<LPAREN: "(">
 	|	<RPAREN: ")">
+	|	<LBRACKET: "[">
+	|	<RBRACKET: "]">
 	|	<COMMA: ",">
 	|	<STR_START: "\""> : IN_STR
 	|   <INTEGER: (["0" - "9"])+>
@@ -136,10 +138,11 @@ void Arguments():
 		|	Argument() (<COMMA> Argument())* <RPAREN>)
 }
 
+
 void Argument():
 { Token t;}
 {
-	Var() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;}
+	Identifier() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;}
 }
 
 void Stmt():
@@ -211,7 +214,7 @@ void SelectStmt():
 void DimStmt():
 { Token t;}
 {
-	<DIM> Var() <AS> t = <TYPE> {jjtThis.nodeValue = t.image;} 
+	<DIM> Identifier() (Subscript())? <AS> t = <TYPE> {jjtThis.nodeValue = t.image;} 
 }
 
 void BreakStmt():
@@ -364,16 +367,28 @@ void String():
 void Var():
 { Token t;}
 {
-		t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;} (Subscript())?
 }
 
 void RefVar():
 { Token t;}
 {
-	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;} (Subscript())?
+}
+
+void Subscript():
+{}
+{
+	<LBRACKET> CompExpr() (<COMMA> CompExpr())* <RBRACKET> 
 }
 
 void FuncName():
+{ Token t;}
+{
+	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
+}
+
+void Identifier():
 { Token t;}
 {
 	t = <IDENTIFIER> {jjtThis.nodeValue = t.image;}
