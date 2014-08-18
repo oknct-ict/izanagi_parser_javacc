@@ -114,7 +114,7 @@ public class ShellVisitor implements ExprParserVisitor
 
 		if (mReturn == true){
 			mReturn = false;
-			returnValue.cast(type);
+			returnValue = returnValue.cast(type);
 			return (returnValue);
 		}
 		else {
@@ -241,9 +241,21 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTDimStmt node, Object data)
 	{
 		int type = toType(node.nodeValue);
+		int size;
+		IzaBasic value = new IzaNone();
+		size = node.jjtGetNumChildren();
 		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic value = new IzaNone().cast(type);
 		
+		if (size == 1){
+			value = new IzaNone().cast(type);
+		}
+		else {
+			ArrayList<Integer> arraySizes;
+			arraySizes = (ArrayList<Integer>)node.jjtGetChild(1).jjtAccept(this, null);
+
+			value = new IzaArray(arraySizes, type);
+		}
+
 		mVarsMng.set(name, value);
 
 		return (value);
@@ -301,106 +313,94 @@ public class ShellVisitor implements ExprParserVisitor
 
 	public Object visit(ASTAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		mVarsMng.set(name, right);
+		//mVarsMng.set(name, right);
+		left.set(right);
 
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTAddAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.add(right);
+		IzaBasic result = left.add(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTSubAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.sub(right);
+		IzaBasic result = left.sub(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTMulAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.mul(right);
+		IzaBasic result = left.mul(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTDivAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.div(right);
+		IzaBasic result = left.div(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTModAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.mod(right);
+		IzaBasic result = left.mod(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 	public Object visit(ASTPowAssign node, Object data)
 	{
-		String name = (String)node.jjtGetChild(0).jjtAccept(this, null);
-		IzaBasic left = mVarsMng.get(name).getValue();
+		IzaBasic left = (IzaBasic)node.jjtGetChild(0).jjtAccept(this, null);
 		IzaBasic right = (IzaBasic)node.jjtGetChild(1).jjtAccept(this, null);
 
 		int type = left.getType();
 		right = right.cast(type);
 
-		left.pow(right);
+		IzaBasic result = left.pow(right);
+		left.set(result);
 
-		mVarsMng.set(name, left);
-
-		return (mVarsMng.get(name).getValue());
+		return (left);
 	}
 
 	public Object visit(ASTBAnd node, Object data)
@@ -568,16 +568,47 @@ public class ShellVisitor implements ExprParserVisitor
 	public Object visit(ASTVar node, Object data)
 	{
 		String name = node.nodeValue;
+		int size;
+		size = node.jjtGetNumChildren();
 		
-		return (name);
+		if (mVarsMng.usedName(name)){
+			IzaBasic value;
+			if (size == 0){
+				value = mVarsMng.get(name).getValue();
+			}
+			else {
+				ArrayList<Integer> indexList;
+				IzaArray izaArray = (IzaArray)mVarsMng.get(name).getValue();
+				indexList = (ArrayList<Integer>)node.jjtGetChild(0).jjtAccept(this, null);
+				value = izaArray.getValue(indexList);
+			}
+
+			return (value);
+		}
+		else {
+			IzaBasic value = new IzaNone();
+			return (value);
+		}
 	}
 	public Object visit(ASTRefVar node, Object data)
 	{
 		String name = node.nodeValue;
+		int size;
+		size = node.jjtGetNumChildren();
 		
 		if (mVarsMng.usedName(name)){
-			IzaBasic shellValue = mVarsMng.get(name).getValue().clone();
-			return (shellValue);
+			IzaBasic value;
+			if (size == 0){
+				value = mVarsMng.get(name).getValue().clone();
+			}
+			else {
+				ArrayList<Integer> indexList;
+				IzaArray izaArray = (IzaArray)mVarsMng.get(name).getValue();
+				indexList = (ArrayList<Integer>)node.jjtGetChild(0).jjtAccept(this, null);
+				value = izaArray.getValue(indexList).clone();
+			}
+
+			return (value);
 		}
 		else {
 			IzaBasic shellValue = new IzaNone();
@@ -587,9 +618,17 @@ public class ShellVisitor implements ExprParserVisitor
 
 	public Object visit(ASTSubscript node, Object data)
 	{
-		String name = data.toString();
+		int size;
+		ArrayList<Integer> indexList = new ArrayList<Integer>();
+		size = node.jjtGetNumChildren();
 
-		return (null);
+		for (int i = 0; i < size; i++){
+			IzaInteger value = (IzaInteger)node.jjtGetChild(i).jjtAccept(this, null);
+			int num = value.mValue;
+			indexList.add(num);
+		}
+
+		return (indexList);
 	}
 
 	public Object visit(ASTArguments node, Object data)
@@ -614,6 +653,13 @@ public class ShellVisitor implements ExprParserVisitor
 	}
 
 	public Object visit(ASTFuncName node, Object data)
+	{
+		String name = node.nodeValue;
+
+		return (name);
+	}
+
+	public Object visit(ASTIdentifier node, Object data)
 	{
 		String name = node.nodeValue;
 
