@@ -20,6 +20,11 @@ public class IzaInteger implements IzaBasic
 		mType = TYPE_INTEGER;
 	}
 
+	public void set(IzaBasic value)
+	{
+		mValue = ((IzaInteger)value).mValue;
+	}
+
 	public IzaBasic add(IzaBasic right)
 	{
 		if (right instanceof IzaInteger){

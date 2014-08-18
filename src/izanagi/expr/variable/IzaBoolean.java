@@ -20,6 +20,11 @@ public class IzaBoolean implements IzaBasic
 		mType = TYPE_BOOLEAN;
 	}
 
+	public void set(IzaBasic value)
+	{
+		mValue = ((IzaBoolean)value).mValue;
+	}
+
 	public IzaBasic add(IzaBasic right)
 	{
 		if (right instanceof IzaString){

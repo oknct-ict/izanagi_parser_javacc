@@ -7,21 +7,25 @@ public class IzaArray implements IzaBasic
 {
 	public ArrayList<IzaBasic> mValue;
 	public int mType;
+	public int mDataType;
 	public ArrayList<Integer> mArraySizes;
 
 	public IzaArray()
 	{
 		mType = TYPE_ARRAY;
+		mDataType = TYPE_NONE;
 	}
-	public IzaArray(IzaArray izaArray)
+	public IzaArray(IzaArray izaArray, int dataType)
 	{
 		mValue = new ArrayList<IzaBasic>(izaArray.mValue);
 		mType = TYPE_ARRAY;
+		mDataType = dataType;
 		mArraySizes = new ArrayList<Integer>(izaArray.mArraySizes);
 	}
-	public IzaArray(ArrayList<Integer> arraySizes, int type)
+	public IzaArray(ArrayList<Integer> arraySizes, int dataType)
 	{
 		mType = TYPE_ARRAY;
+		mDataType = dataType;
 		mArraySizes = arraySizes;
 		int totalSize = 1;
 
@@ -30,18 +34,9 @@ public class IzaArray implements IzaBasic
 		}
 
 		mValue = new ArrayList<IzaBasic>(totalSize);
-	}
-	public IzaArray(String index, int type)
-	{
-		List<Integer> arraySizes = toArraySizes(index);
-		mType = TYPE_ARRAY;
-		int totalSize = 1;
-
-		for (int i = 0; i < mArraySizes.size(); i++){
-			totalSize *= mArraySizes.get(i);
+		for (int i = 0; i < totalSize; i++){
+			mValue.add(i, new IzaNone().cast(mDataType));
 		}
-
-		mValue = new ArrayList<IzaBasic>(totalSize);
 	}
 	public void setArray(String index)
 	{
@@ -53,6 +48,9 @@ public class IzaArray implements IzaBasic
 		}
 
 		mValue = new ArrayList<IzaBasic>(totalSize);
+	}
+	public void set(IzaBasic value)
+	{
 	}
 
 	private ArrayList<Integer> toArraySizes(String index)
@@ -76,11 +74,18 @@ public class IzaArray implements IzaBasic
 		}
 
 		for (int i = 0; i < indexList.size(); i++){
-			index += indexList.get(i);
 			index *= mArraySizes.get(i);
+			index += indexList.get(i);
 		}
 
 		return (index);
+	}
+
+	public IzaBasic getValue(ArrayList<Integer> indexList)
+	{
+		int index = calcIndex(indexList);
+
+		return (mValue.get(index));
 	}
 
 	public IzaBasic add(IzaBasic right)
@@ -194,7 +199,7 @@ public class IzaArray implements IzaBasic
 	}
 	public IzaBasic clone()
 	{
-		return (new IzaArray(this));
+		return (new IzaArray(this, mDataType));
 	}
 
 	public String toString()

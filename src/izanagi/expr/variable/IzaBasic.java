@@ -9,6 +9,7 @@ public interface IzaBasic
 	int TYPE_BOOLEAN = 4;
 	int TYPE_ARRAY = 5;
 
+	public void set(IzaBasic value);
 	public IzaBasic add(IzaBasic right);
 	public IzaBasic sub(IzaBasic right);
 	public IzaBasic mul(IzaBasic right);

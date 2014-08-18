@@ -9,6 +9,10 @@ public class IzaNone implements IzaBasic
 		mType = TYPE_NONE;
 	}
 
+	public void set(IzaBasic value)
+	{
+	}
+
 	public IzaBasic add(IzaBasic right)
 	{
 		System.out.println("許されない演算です");

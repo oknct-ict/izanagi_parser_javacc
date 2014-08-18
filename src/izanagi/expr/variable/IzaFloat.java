@@ -20,6 +20,11 @@ public class IzaFloat implements IzaBasic
 		mType = TYPE_FLOAT;
 	}
 
+	public void set(IzaBasic value)
+	{
+		mValue = ((IzaFloat)value).mValue;
+	}
+
 	public IzaBasic add(IzaBasic right)
 	{
 		if (right instanceof IzaInteger){
