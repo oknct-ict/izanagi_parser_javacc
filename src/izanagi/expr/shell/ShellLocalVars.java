@@ -1,6 +1,7 @@
 package izanagi.expr.shell;
 
 import java.util.Stack; 
+import izanagi.expr.variable.*;
 
 public class ShellLocalVars
 {
@@ -34,11 +35,11 @@ public class ShellLocalVars
 		return (vars.get(name));
 	}
 
-	public void set(String name, ShellValue shellValue)
+	public void set(String name, IzaBasic value)
 	{
 		ShellVars vars = mVarsStack.peek();
 		
-		vars.set(name, shellValue);
+		vars.set(name, value);
 	}
 
 	public boolean usedName(String name)

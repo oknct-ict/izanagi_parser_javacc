@@ -2,6 +2,7 @@ package izanagi.expr.shell;
 
 import java.util.HashMap;
 import java.util.Map;
+import izanagi.expr.variable.*;
 
 public class ShellVars
 {
@@ -17,14 +18,14 @@ public class ShellVars
 		return (mVar.get(name));
 	}
 
-	public void set(String name, ShellValue shellValue)
+	public void set(String name, IzaBasic value)
 	{
 		if (mVar.containsKey(name)){
 			ShellVar var = mVar.get(name);
-			var.setValue(shellValue);
+			var.setValue(value);
 		}
 		else {
-			mVar.put(name, new ShellVar(name, shellValue));
+			mVar.put(name, new ShellVar(name, value));
 		}
 	}
 

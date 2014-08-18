@@ -1,19 +1,21 @@
 package izanagi.expr.shell;
 
+import izanagi.expr.variable.*;
+
 public class ShellVar
 {
 	private String mName;
-	private ShellValue mValue;
+	private IzaBasic mValue;
 
-	public ShellVar(String name, ShellValue shellValue)
+	public ShellVar(String name, IzaBasic value)
 	{
-		set(name, shellValue);
+		set(name, value);
 	}
 
-	public void set(String name, ShellValue shellValue)
+	public void set(String name, IzaBasic value)
 	{
 		setName(name);
-		setValue(shellValue);
+		setValue(value);
 	}
 
 	public int getType()
@@ -30,13 +32,13 @@ public class ShellVar
 		mName = name;
 	}
 
-	public ShellValue getValue()
+	public IzaBasic getValue()
 	{
 		return (mValue);
 	}
-	public void setValue(ShellValue shellValue)
+	public void setValue(IzaBasic value)
 	{
-		mValue = shellValue;
+		mValue = value;
 	}
 
 	public void dump()

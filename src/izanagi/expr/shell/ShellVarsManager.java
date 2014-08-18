@@ -1,5 +1,7 @@
 package izanagi.expr.shell;
 
+import izanagi.expr.variable.*;
+
 public class ShellVarsManager
 {
 	private static ShellVarsManager instance = new ShellVarsManager();
@@ -37,13 +39,13 @@ public class ShellVarsManager
 
 		return (mGVars.get(name));
 	}
-	public void set(String name, ShellValue shellValue)
+	public void set(String name, IzaBasic value)
 	{
 		if (countInFunc > 0){
-			mLVars.set(name, shellValue);
+			mLVars.set(name, value);
 		}
 		else {
-			mGVars.set(name, shellValue);
+			mGVars.set(name, value);
 		}
 	}
 

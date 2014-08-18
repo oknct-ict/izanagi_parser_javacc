@@ -2,6 +2,7 @@ package izanagi.expr.shell;
 
 import izanagi.expr.parser.ASTFuncBlock;
 import java.util.ArrayList;
+import izanagi.expr.variable.*;
 
 public class ShellFunc
 {
@@ -25,7 +26,7 @@ public class ShellFunc
 		setBlock(block);
 	}
 
-	public boolean checkArgs(ArrayList<ShellValue> valueList)
+	public boolean checkArgs(ArrayList<IzaBasic> valueList)
 	{
 		ArrayList<ShellArg> argList = mArgs.getArgList();
 		int size = argList.size();
