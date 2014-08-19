@@ -1,665 +1,90 @@
-Call:   Start
-  Call:   Stmts
-    Call:   Stmt
-      Call:   DimStmt
-        Consumed token: <"Dim" at line 1 column 1>
-        Call:   Identifier
-          Consumed token: <<IDENTIFIER>: "i" at line 1 column 5>
-        Return: Identifier
-        Consumed token: <"as" at line 1 column 7>
-        Consumed token: <<TYPE>: "Integer" at line 1 column 10>
-      Return: DimStmt
-    Return: Stmt
-    Call:   Stmt
-      Call:   DimStmt
-        Consumed token: <"Dim" at line 2 column 1>
-        Call:   Identifier
-          Consumed token: <<IDENTIFIER>: "j" at line 2 column 5>
-        Return: Identifier
-        Consumed token: <"as" at line 2 column 7>
-        Consumed token: <<TYPE>: "Integer" at line 2 column 10>
-      Return: DimStmt
-    Return: Stmt
-    Call:   Stmt
-      Call:   DimStmt
-        Consumed token: <"Dim" at line 3 column 1>
-        Call:   Identifier
-          Consumed token: <<IDENTIFIER>: "list" at line 3 column 5>
-        Return: Identifier
-        Call:   Subscript
-          Consumed token: <"[" at line 3 column 9>
-          Call:   CompExpr
-            Call:   BoolCompExpr
-              Call:   EqualCompExpr
-                Call:   SizeCompExpr
-                  Call:   AddExpr
-                    Call:   MulExpr
-                      Call:   UniExpr
-                        Call:   Literal
-                          Call:   Integer
-                            Consumed token: <<INTEGER>: "5" at line 3 column 10>
-                          Return: Integer
-                        Return: Literal
-                      Return: UniExpr
-                    Return: MulExpr
-                  Return: AddExpr
-                Return: SizeCompExpr
-              Return: EqualCompExpr
-            Return: BoolCompExpr
-          Return: CompExpr
-          Consumed token: <"," at line 3 column 11>
-          Call:   CompExpr
-            Call:   BoolCompExpr
-              Call:   EqualCompExpr
-                Call:   SizeCompExpr
-                  Call:   AddExpr
-                    Call:   MulExpr
-                      Call:   UniExpr
-                        Call:   Literal
-                          Call:   Integer
-                            Consumed token: <<INTEGER>: "5" at line 3 column 13>
-                          Return: Integer
-                        Return: Literal
-                      Return: UniExpr
-                    Return: MulExpr
-                  Return: AddExpr
-                Return: SizeCompExpr
-              Return: EqualCompExpr
-            Return: BoolCompExpr
-          Return: CompExpr
-          Consumed token: <"]" at line 3 column 14>
-        Return: Subscript
-        Consumed token: <"as" at line 3 column 16>
-        Consumed token: <<TYPE>: "Integer" at line 3 column 19>
-      Return: DimStmt
-    Return: Stmt
-    Call:   Stmt
-      Call:   Expression
-        Call:   AssignExpr
-          Call:   Var
-            Consumed token: <<IDENTIFIER>: "i" at line 5 column 1>
-          Return: Var
-          Consumed token: <"=" at line 5 column 3>
-          Call:   EqualCompExpr
-            Call:   SizeCompExpr
-              Call:   AddExpr
-                Call:   MulExpr
-                  Call:   UniExpr
-                    Call:   Literal
-                      Call:   Integer
-                        Consumed token: <<INTEGER>: "0" at line 5 column 5>
-                      Return: Integer
-                    Return: Literal
-                  Return: UniExpr
-                Return: MulExpr
-              Return: AddExpr
-            Return: SizeCompExpr
-          Return: EqualCompExpr
-        Return: AssignExpr
-      Return: Expression
-    Return: Stmt
-    Call:   Stmt
-      Call:   Expression
-        Call:   AssignExpr
-          Call:   Var
-            Consumed token: <<IDENTIFIER>: "j" at line 6 column 1>
-          Return: Var
-          Consumed token: <"=" at line 6 column 3>
-          Call:   EqualCompExpr
-            Call:   SizeCompExpr
-              Call:   AddExpr
-                Call:   MulExpr
-                  Call:   UniExpr
-                    Call:   Literal
-                      Call:   Integer
-                        Consumed token: <<INTEGER>: "0" at line 6 column 5>
-                      Return: Integer
-                    Return: Literal
-                  Return: UniExpr
-                Return: MulExpr
-              Return: AddExpr
-            Return: SizeCompExpr
-          Return: EqualCompExpr
-        Return: AssignExpr
-      Return: Expression
-    Return: Stmt
-    Call:   Stmt
-      Call:   WhileStmt
-        Consumed token: <"While" at line 7 column 1>
-        Call:   CompExpr
-          Call:   BoolCompExpr
-            Call:   EqualCompExpr
-              Call:   SizeCompExpr
-                Call:   AddExpr
-                  Call:   MulExpr
-                    Call:   UniExpr
-                      Call:   Literal
-                        Consumed token: <"(" at line 7 column 7>
-                        Call:   CompExpr
-                          Call:   BoolCompExpr
-                            Call:   EqualCompExpr
-                              Call:   SizeCompExpr
-                                Call:   AddExpr
-                                  Call:   MulExpr
-                                    Call:   UniExpr
-                                      Call:   Literal
-                                        Call:   RefVar
-                                          Consumed token: <<IDENTIFIER>: "i" at line 7 column 8>
-                                        Return: RefVar
-                                      Return: Literal
-                                    Return: UniExpr
-                                  Return: MulExpr
-                                Return: AddExpr
-                                Consumed token: <"<" at line 7 column 10>
-                                Call:   AddExpr
-                                  Call:   MulExpr
-                                    Call:   UniExpr
-                                      Call:   Literal
-                                        Call:   Integer
-                                          Consumed token: <<INTEGER>: "5" at line 7 column 12>
-                                        Return: Integer
-                                      Return: Literal
-                                    Return: UniExpr
-                                  Return: MulExpr
-                                Return: AddExpr
-                              Return: SizeCompExpr
-                            Return: EqualCompExpr
-                          Return: BoolCompExpr
-                        Return: CompExpr
-                        Consumed token: <")" at line 7 column 13>
-                      Return: Literal
-                    Return: UniExpr
-                  Return: MulExpr
-                Return: AddExpr
-              Return: SizeCompExpr
-            Return: EqualCompExpr
-          Return: BoolCompExpr
-        Return: CompExpr
-        Call:   WhileBlock
-          Call:   Stmt
-            Call:   WhileStmt
-              Consumed token: <"While" at line 8 column 9>
-              Call:   CompExpr
-                Call:   BoolCompExpr
-                  Call:   EqualCompExpr
-                    Call:   SizeCompExpr
-                      Call:   AddExpr
-                        Call:   MulExpr
-                          Call:   UniExpr
-                            Call:   Literal
-                              Consumed token: <"(" at line 8 column 15>
-                              Call:   CompExpr
-                                Call:   BoolCompExpr
-                                  Call:   EqualCompExpr
-                                    Call:   SizeCompExpr
-                                      Call:   AddExpr
-                                        Call:   MulExpr
-                                          Call:   UniExpr
-                                            Call:   Literal
-                                              Call:   RefVar
-                                                Consumed token: <<IDENTIFIER>: "j" at line 8 column 16>
-                                              Return: RefVar
-                                            Return: Literal
-                                          Return: UniExpr
-                                        Return: MulExpr
-                                      Return: AddExpr
-                                      Consumed token: <"<" at line 8 column 18>
-                                      Call:   AddExpr
-                                        Call:   MulExpr
-                                          Call:   UniExpr
-                                            Call:   Literal
-                                              Call:   Integer
-                                                Consumed token: <<INTEGER>: "5" at line 8 column 20>
-                                              Return: Integer
-                                            Return: Literal
-                                          Return: UniExpr
-                                        Return: MulExpr
-                                      Return: AddExpr
-                                    Return: SizeCompExpr
-                                  Return: EqualCompExpr
-                                Return: BoolCompExpr
-                              Return: CompExpr
-                              Consumed token: <")" at line 8 column 21>
-                            Return: Literal
-                          Return: UniExpr
-                        Return: MulExpr
-                      Return: AddExpr
-                    Return: SizeCompExpr
-                  Return: EqualCompExpr
-                Return: BoolCompExpr
-              Return: CompExpr
-              Call:   WhileBlock
-                Call:   Stmt
-                  Call:   Expression
-                    Call:   AssignExpr
-                      Call:   Var
-                        Consumed token: <<IDENTIFIER>: "list" at line 9 column 17>
-                        Call:   Subscript
-                          Consumed token: <"[" at line 9 column 21>
-                          Call:   CompExpr
-                            Call:   BoolCompExpr
-                              Call:   EqualCompExpr
-                                Call:   SizeCompExpr
-                                  Call:   AddExpr
-                                    Call:   MulExpr
-                                      Call:   UniExpr
-                                        Call:   Literal
-                                          Call:   RefVar
-                                            Consumed token: <<IDENTIFIER>: "i" at line 9 column 22>
-                                          Return: RefVar
-                                        Return: Literal
-                                      Return: UniExpr
-                                    Return: MulExpr
-                                  Return: AddExpr
-                                Return: SizeCompExpr
-                              Return: EqualCompExpr
-                            Return: BoolCompExpr
-                          Return: CompExpr
-                          Consumed token: <"," at line 9 column 23>
-                          Call:   CompExpr
-                            Call:   BoolCompExpr
-                              Call:   EqualCompExpr
-                                Call:   SizeCompExpr
-                                  Call:   AddExpr
-                                    Call:   MulExpr
-                                      Call:   UniExpr
-                                        Call:   Literal
-                                          Call:   RefVar
-                                            Consumed token: <<IDENTIFIER>: "j" at line 9 column 25>
-                                          Return: RefVar
-                                        Return: Literal
-                                      Return: UniExpr
-                                    Return: MulExpr
-                                  Return: AddExpr
-                                Return: SizeCompExpr
-                              Return: EqualCompExpr
-                            Return: BoolCompExpr
-                          Return: CompExpr
-                          Consumed token: <"]" at line 9 column 26>
-                        Return: Subscript
-                      Return: Var
-                      Consumed token: <"=" at line 9 column 28>
-                      Call:   EqualCompExpr
-                        Call:   SizeCompExpr
-                          Call:   AddExpr
-                            Call:   MulExpr
-                              Call:   UniExpr
-                                Call:   Literal
-                                  Call:   RefVar
-                                    Consumed token: <<IDENTIFIER>: "i" at line 9 column 30>
-                                  Return: RefVar
-                                Return: Literal
-                              Return: UniExpr
-                              Consumed token: <"*" at line 9 column 32>
-                              Call:   UniExpr
-                                Call:   Literal
-                                  Call:   Integer
-                                    Consumed token: <<INTEGER>: "5" at line 9 column 34>
-                                  Return: Integer
-                                Return: Literal
-                              Return: UniExpr
-                            Return: MulExpr
-                            Consumed token: <"+" at line 9 column 36>
-                            Call:   MulExpr
-                              Call:   UniExpr
-                                Call:   Literal
-                                  Call:   RefVar
-                                    Consumed token: <<IDENTIFIER>: "j" at line 9 column 38>
-                                  Return: RefVar
-                                Return: Literal
-                              Return: UniExpr
-                            Return: MulExpr
-                          Return: AddExpr
-                        Return: SizeCompExpr
-                      Return: EqualCompExpr
-                    Return: AssignExpr
-                  Return: Expression
-                Return: Stmt
-                Call:   Stmt
-                  Call:   Expression
-                    Call:   AssignExpr
-                      Call:   Var
-                        Consumed token: <<IDENTIFIER>: "j" at line 10 column 17>
-                      Return: Var
-                      Consumed token: <"+=" at line 10 column 19>
-                      Call:   EqualCompExpr
-                        Call:   SizeCompExpr
-                          Call:   AddExpr
-                            Call:   MulExpr
-                              Call:   UniExpr
-                                Call:   Literal
-                                  Call:   Integer
-                                    Consumed token: <<INTEGER>: "1" at line 10 column 22>
-                                  Return: Integer
-                                Return: Literal
-                              Return: UniExpr
-                            Return: MulExpr
-                          Return: AddExpr
-                        Return: SizeCompExpr
-                      Return: EqualCompExpr
-                    Return: AssignExpr
-                  Return: Expression
-                Return: Stmt
-              Return: WhileBlock
-              Consumed token: <"End While" at line 11 column 9>
-            Return: WhileStmt
-          Return: Stmt
-          Call:   Stmt
-            Call:   Expression
-              Call:   AssignExpr
-                Call:   Var
-                  Consumed token: <<IDENTIFIER>: "i" at line 12 column 9>
-                Return: Var
-                Consumed token: <"+=" at line 12 column 11>
-                Call:   EqualCompExpr
-                  Call:   SizeCompExpr
-                    Call:   AddExpr
-                      Call:   MulExpr
-                        Call:   UniExpr
-                          Call:   Literal
-                            Call:   Integer
-                              Consumed token: <<INTEGER>: "1" at line 12 column 14>
-                            Return: Integer
-                          Return: Literal
-                        Return: UniExpr
-                      Return: MulExpr
-                    Return: AddExpr
-                  Return: SizeCompExpr
-                Return: EqualCompExpr
-              Return: AssignExpr
-            Return: Expression
-          Return: Stmt
-        Return: WhileBlock
-        Consumed token: <"End While" at line 13 column 1>
-      Return: WhileStmt
-    Return: Stmt
-    Call:   Stmt
-      Call:   Expression
-        Call:   AssignExpr
-          Call:   Var
-            Consumed token: <<IDENTIFIER>: "i" at line 15 column 1>
-          Return: Var
-          Consumed token: <"=" at line 15 column 3>
-          Call:   EqualCompExpr
-            Call:   SizeCompExpr
-              Call:   AddExpr
-                Call:   MulExpr
-                  Call:   UniExpr
-                    Call:   Literal
-                      Call:   Integer
-                        Consumed token: <<INTEGER>: "0" at line 15 column 5>
-                      Return: Integer
-                    Return: Literal
-                  Return: UniExpr
-                Return: MulExpr
-              Return: AddExpr
-            Return: SizeCompExpr
-          Return: EqualCompExpr
-        Return: AssignExpr
-      Return: Expression
-    Return: Stmt
-    Call:   Stmt
-      Call:   Expression
-        Call:   AssignExpr
-          Call:   Var
-            Consumed token: <<IDENTIFIER>: "j" at line 16 column 1>
-          Return: Var
-          Consumed token: <"=" at line 16 column 3>
-          Call:   EqualCompExpr
-            Call:   SizeCompExpr
-              Call:   AddExpr
-                Call:   MulExpr
-                  Call:   UniExpr
-                    Call:   Literal
-                      Call:   Integer
-                        Consumed token: <<INTEGER>: "0" at line 16 column 5>
-                      Return: Integer
-                    Return: Literal
-                  Return: UniExpr
-                Return: MulExpr
-              Return: AddExpr
-            Return: SizeCompExpr
-          Return: EqualCompExpr
-        Return: AssignExpr
-      Return: Expression
-    Return: Stmt
-    Call:   Stmt
-      Call:   WhileStmt
-        Consumed token: <"While" at line 17 column 1>
-        Call:   CompExpr
-          Call:   BoolCompExpr
-            Call:   EqualCompExpr
-              Call:   SizeCompExpr
-                Call:   AddExpr
-                  Call:   MulExpr
-                    Call:   UniExpr
-                      Call:   Literal
-                        Consumed token: <"(" at line 17 column 7>
-                        Call:   CompExpr
-                          Call:   BoolCompExpr
-                            Call:   EqualCompExpr
-                              Call:   SizeCompExpr
-                                Call:   AddExpr
-                                  Call:   MulExpr
-                                    Call:   UniExpr
-                                      Call:   Literal
-                                        Call:   RefVar
-                                          Consumed token: <<IDENTIFIER>: "i" at line 17 column 8>
-                                        Return: RefVar
-                                      Return: Literal
-                                    Return: UniExpr
-                                  Return: MulExpr
-                                Return: AddExpr
-                                Consumed token: <"<" at line 17 column 10>
-                                Call:   AddExpr
-                                  Call:   MulExpr
-                                    Call:   UniExpr
-                                      Call:   Literal
-                                        Call:   Integer
-                                          Consumed token: <<INTEGER>: "5" at line 17 column 12>
-                                        Return: Integer
-                                      Return: Literal
-                                    Return: UniExpr
-                                  Return: MulExpr
-                                Return: AddExpr
-                              Return: SizeCompExpr
-                            Return: EqualCompExpr
-                          Return: BoolCompExpr
-                        Return: CompExpr
-                        Consumed token: <")" at line 17 column 13>
-                      Return: Literal
-                    Return: UniExpr
-                  Return: MulExpr
-                Return: AddExpr
-              Return: SizeCompExpr
-            Return: EqualCompExpr
-          Return: BoolCompExpr
-        Return: CompExpr
-        Call:   WhileBlock
-          Call:   Stmt
-            Call:   WhileStmt
-              Consumed token: <"While" at line 18 column 9>
-              Call:   CompExpr
-                Call:   BoolCompExpr
-                  Call:   EqualCompExpr
-                    Call:   SizeCompExpr
-                      Call:   AddExpr
-                        Call:   MulExpr
-                          Call:   UniExpr
-                            Call:   Literal
-                              Consumed token: <"(" at line 18 column 15>
-                              Call:   CompExpr
-                                Call:   BoolCompExpr
-                                  Call:   EqualCompExpr
-                                    Call:   SizeCompExpr
-                                      Call:   AddExpr
-                                        Call:   MulExpr
-                                          Call:   UniExpr
-                                            Call:   Literal
-                                              Call:   RefVar
-                                                Consumed token: <<IDENTIFIER>: "j" at line 18 column 16>
-                                              Return: RefVar
-                                            Return: Literal
-                                          Return: UniExpr
-                                        Return: MulExpr
-                                      Return: AddExpr
-                                      Consumed token: <"<" at line 18 column 18>
-                                      Call:   AddExpr
-                                        Call:   MulExpr
-                                          Call:   UniExpr
-                                            Call:   Literal
-                                              Call:   Integer
-                                                Consumed token: <<INTEGER>: "5" at line 18 column 20>
-                                              Return: Integer
-                                            Return: Literal
-                                          Return: UniExpr
-                                        Return: MulExpr
-                                      Return: AddExpr
-                                    Return: SizeCompExpr
-                                  Return: EqualCompExpr
-                                Return: BoolCompExpr
-                              Return: CompExpr
-                              Consumed token: <")" at line 18 column 21>
-                            Return: Literal
-                          Return: UniExpr
-                        Return: MulExpr
-                      Return: AddExpr
-                    Return: SizeCompExpr
-                  Return: EqualCompExpr
-                Return: BoolCompExpr
-              Return: CompExpr
-              Call:   WhileBlock
-                Call:   Stmt
-                  Call:   PrintStmt
-                    Consumed token: <"Print" at line 19 column 17>
-                    Call:   CompExpr
-                      Call:   BoolCompExpr
-                        Call:   EqualCompExpr
-                          Call:   SizeCompExpr
-                            Call:   AddExpr
-                              Call:   MulExpr
-                                Call:   UniExpr
-                                  Call:   Literal
-                                    Call:   RefVar
-                                      Consumed token: <<IDENTIFIER>: "list" at line 19 column 23>
-                                      Call:   Subscript
-                                        Consumed token: <"[" at line 19 column 27>
-                                        Call:   CompExpr
-                                          Call:   BoolCompExpr
-                                            Call:   EqualCompExpr
-                                              Call:   SizeCompExpr
-                                                Call:   AddExpr
-                                                  Call:   MulExpr
-                                                    Call:   UniExpr
-                                                      Call:   Literal
-                                                        Call:   RefVar
-                                                          Consumed token: <<IDENTIFIER>: "i" at line 19 column 28>
-                                                        Return: RefVar
-                                                      Return: Literal
-                                                    Return: UniExpr
-                                                  Return: MulExpr
-                                                Return: AddExpr
-                                              Return: SizeCompExpr
-                                            Return: EqualCompExpr
-                                          Return: BoolCompExpr
-                                        Return: CompExpr
-                                        Consumed token: <"," at line 19 column 29>
-                                        Call:   CompExpr
-                                          Call:   BoolCompExpr
-                                            Call:   EqualCompExpr
-                                              Call:   SizeCompExpr
-                                                Call:   AddExpr
-                                                  Call:   MulExpr
-                                                    Call:   UniExpr
-                                                      Call:   Literal
-                                                        Call:   RefVar
-                                                          Consumed token: <<IDENTIFIER>: "j" at line 19 column 31>
-                                                        Return: RefVar
-                                                      Return: Literal
-                                                    Return: UniExpr
-                                                  Return: MulExpr
-                                                Return: AddExpr
-                                              Return: SizeCompExpr
-                                            Return: EqualCompExpr
-                                          Return: BoolCompExpr
-                                        Return: CompExpr
-                                        Consumed token: <"]" at line 19 column 32>
-                                      Return: Subscript
-                                    Return: RefVar
-                                  Return: Literal
-                                Return: UniExpr
-                              Return: MulExpr
-                            Return: AddExpr
-                          Return: SizeCompExpr
-                        Return: EqualCompExpr
-                      Return: BoolCompExpr
-                    Return: CompExpr
-                  Return: PrintStmt
-                Return: Stmt
-                Call:   Stmt
-                  Call:   Expression
-                    Call:   AssignExpr
-                      Call:   Var
-                        Consumed token: <<IDENTIFIER>: "j" at line 20 column 17>
-                      Return: Var
-                      Consumed token: <"+=" at line 20 column 19>
-                      Call:   EqualCompExpr
-                        Call:   SizeCompExpr
-                          Call:   AddExpr
-                            Call:   MulExpr
-                              Call:   UniExpr
-                                Call:   Literal
-                                  Call:   Integer
-                                    Consumed token: <<INTEGER>: "1" at line 20 column 22>
-                                  Return: Integer
-                                Return: Literal
-                              Return: UniExpr
-                            Return: MulExpr
-                          Return: AddExpr
-                        Return: SizeCompExpr
-                      Return: EqualCompExpr
-                    Return: AssignExpr
-                  Return: Expression
-                Return: Stmt
-              Return: WhileBlock
-              Consumed token: <"End While" at line 21 column 9>
-            Return: WhileStmt
-          Return: Stmt
-          Call:   Stmt
-            Call:   Expression
-              Call:   AssignExpr
-                Call:   Var
-                  Consumed token: <<IDENTIFIER>: "i" at line 22 column 9>
-                Return: Var
-                Consumed token: <"+=" at line 22 column 11>
-                Call:   EqualCompExpr
-                  Call:   SizeCompExpr
-                    Call:   AddExpr
-                      Call:   MulExpr
-                        Call:   UniExpr
-                          Call:   Literal
-                            Call:   Integer
-                              Consumed token: <<INTEGER>: "1" at line 22 column 14>
-                            Return: Integer
-                          Return: Literal
-                        Return: UniExpr
-                      Return: MulExpr
-                    Return: AddExpr
-                  Return: SizeCompExpr
-                Return: EqualCompExpr
-              Return: AssignExpr
-            Return: Expression
-          Return: Stmt
-        Return: WhileBlock
-        Consumed token: <"End While" at line 23 column 1>
-      Return: WhileStmt
-    Return: Stmt
-  Return: Stmts
-  Consumed token: <<EOF> at line 23 column 10>
-Return: Start
-0
-1
-2
-3
-4
-end
+Buildfile: /home/goya/ict/u-22/izanagi_parser_javacc/build.xml
+
+init:
+
+cc:
+   [jjtree] Java Compiler Compiler Version 6.0_1 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/goya/ict/u-22/izanagi_parser_javacc/src/tk/oknctict/izanagi/ExprParser.jjt . . .
+   [jjtree] opt:java
+   [jjtree] File "Node.java" does not exist.  Will create one.
+   [jjtree] File "SimpleNode.java" does not exist.  Will create one.
+   [jjtree] File "ASTStart.java" does not exist.  Will create one.
+   [jjtree] File "ASTStmts.java" does not exist.  Will create one.
+   [jjtree] File "ASTBlock.java" does not exist.  Will create one.
+   [jjtree] File "ASTWhileBlock.java" does not exist.  Will create one.
+   [jjtree] File "ASTFuncBlock.java" does not exist.  Will create one.
+   [jjtree] File "ASTArguments.java" does not exist.  Will create one.
+   [jjtree] File "ASTArgument.java" does not exist.  Will create one.
+   [jjtree] File "ASTStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTDefFunc.java" does not exist.  Will create one.
+   [jjtree] File "ASTCallFunc.java" does not exist.  Will create one.
+   [jjtree] File "ASTIfStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTWhileStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTSelectStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTDimStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTBreakStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTContinueStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTPrintStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTReturnStmt.java" does not exist.  Will create one.
+   [jjtree] File "ASTAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTAddAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTSubAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTMulAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTDivAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTModAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTPowAssign.java" does not exist.  Will create one.
+   [jjtree] File "ASTBAnd.java" does not exist.  Will create one.
+   [jjtree] File "ASTBOr.java" does not exist.  Will create one.
+   [jjtree] File "ASTEq.java" does not exist.  Will create one.
+   [jjtree] File "ASTNEq.java" does not exist.  Will create one.
+   [jjtree] File "ASTGe.java" does not exist.  Will create one.
+   [jjtree] File "ASTGt.java" does not exist.  Will create one.
+   [jjtree] File "ASTLe.java" does not exist.  Will create one.
+   [jjtree] File "ASTLt.java" does not exist.  Will create one.
+   [jjtree] File "ASTAdd.java" does not exist.  Will create one.
+   [jjtree] File "ASTSub.java" does not exist.  Will create one.
+   [jjtree] File "ASTMul.java" does not exist.  Will create one.
+   [jjtree] File "ASTDiv.java" does not exist.  Will create one.
+   [jjtree] File "ASTMod.java" does not exist.  Will create one.
+   [jjtree] File "ASTPower.java" does not exist.  Will create one.
+   [jjtree] File "ASTAnd.java" does not exist.  Will create one.
+   [jjtree] File "ASTOr.java" does not exist.  Will create one.
+   [jjtree] File "ASTNot.java" does not exist.  Will create one.
+   [jjtree] File "ASTUniExpr.java" does not exist.  Will create one.
+   [jjtree] File "ASTInteger.java" does not exist.  Will create one.
+   [jjtree] File "ASTFloat.java" does not exist.  Will create one.
+   [jjtree] File "ASTString.java" does not exist.  Will create one.
+   [jjtree] File "ASTVar.java" does not exist.  Will create one.
+   [jjtree] File "ASTRefVar.java" does not exist.  Will create one.
+   [jjtree] File "ASTSubscript.java" does not exist.  Will create one.
+   [jjtree] File "ASTFuncName.java" does not exist.  Will create one.
+   [jjtree] File "ASTIdentifier.java" does not exist.  Will create one.
+   [jjtree] File "ExprParserTreeConstants.java" does not exist.  Will create one.
+   [jjtree] File "ExprParserVisitor.java" does not exist.  Will create one.
+   [jjtree] File "ExprParserDefaultVisitor.java" does not exist.  Will create one.
+   [jjtree] File "JJTExprParserState.java" does not exist.  Will create one.
+   [jjtree] Annotated grammar generated successfully in /home/goya/ict/u-22/izanagi_parser_javacc/src/tk/oknctict/izanagi/parser/ExprParser.jj
+   [javacc] Java Compiler Compiler Version 6.0_1 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/goya/ict/u-22/izanagi_parser_javacc/src/tk/oknctict/izanagi/parser/ExprParser.jj . . .
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated successfully.
+
+BUILD SUCCESSFUL
+Total time: 2 seconds
+Buildfile: /home/goya/ict/u-22/izanagi_parser_javacc/build.xml
+
+init:
+
+compile:
+    [javac] /home/goya/ict/u-22/izanagi_parser_javacc/build.xml:17: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 85 source files to /home/goya/ict/u-22/izanagi_parser_javacc/build/classes
+    [javac] 注意:/home/goya/ict/u-22/izanagi_parser_javacc/src/tk/oknctict/izanagi/shell/ShellVisitor.javaの操作は、未チェックまたは安全ではありません。
+    [javac] 注意:詳細は、-Xlint:uncheckedオプションを指定して再コンパイルしてください。
+
+BUILD SUCCESSFUL
+Total time: 2 seconds

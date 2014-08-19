@@ -3,7 +3,7 @@ import os;
 
 def _run():
 	os.chdir("build/classes/");
-	os.system("java izanagi.expr.Expr");
+	os.system("java tk.oknctict.izanagi.Expr");
 
 def _compile():
 	os.system("ant cc");
