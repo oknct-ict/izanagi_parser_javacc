@@ -1,0 +1,12 @@
+
+Dim button as Button
+
+Parts button {
+	Function on_click () on Click
+	End Function
+}
+
+stdSetX("button", 1.0)
+stdSetY("button", 1.0)
+stdSetWidth("button", 1.0)
+stdSetHeight("button", 1.0)
