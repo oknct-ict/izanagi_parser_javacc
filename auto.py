@@ -3,6 +3,7 @@ import os;
 
 def _run():
 	os.chdir("build/classes/");
+	os.system("cat StandardFunc.iz Main.iz > Shell.iz");
 	os.system("java tk.oknctict.izanagi.Expr");
 
 def _compile():
