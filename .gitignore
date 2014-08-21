@@ -12,4 +12,4 @@
 hs_err_pid*
 
 # Compiler Compiler create this file
-src/tk/oknctict/izanagi/parser/
+src/tk/oknctict/izanagi/parser/*
