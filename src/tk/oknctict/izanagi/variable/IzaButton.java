@@ -1,16 +1,19 @@
 package tk.oknctict.izanagi.variable;
 
 import tk.oknctict.izanagi.parser.ASTFuncBlock;
+import tk.oknctict.izanagi.shell.*;
 
 public class IzaButton extends IzaView
 {
-
 	public IzaButton()
 	{
 		this(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	public IzaButton(float x, float y, float width, float height)
 	{
+		mShellInterface = ShellInterface.getInstance();
+		mShellInterface.createView(this);
+
 		mType = TYPE_BUTTON;
 		setX(x);
 		setY(y);
@@ -19,6 +22,9 @@ public class IzaButton extends IzaView
 	}
 	public IzaButton(IzaButton button)
 	{
+		mShellInterface = ShellInterface.getInstance();
+		mShellInterface.createView(this);
+
 		mType = TYPE_BUTTON;
 		setX(button.getX());
 		setY(button.getY());
