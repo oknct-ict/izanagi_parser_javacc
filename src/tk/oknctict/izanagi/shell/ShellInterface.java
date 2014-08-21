@@ -64,14 +64,17 @@ public class ShellInterface
 		IzaEvent event = new IzaEvent(funcName, block, eventType);
 		((IzaView)view).setEvent(event);
 		ShellArgs args = new ShellArgs();
-		ShellFunc func = new ShellFunc(name, args, view.getType(), block);
+		ShellFunc func = new ShellFunc(funcName, args, view.getType(), block);
 
 		mFuncs.set(funcName, func);
 	}
 
-	public void callEvent(String funcName)
+	public void callFunc(String funcName)
 	{
 		ShellFunc func = mFuncs.get(funcName);
+
+		ShellVisitor.cFuncsNameStack.push(funcName);
+		mVarsMng.intoFunc();
 		mVisitor.visit(func.getBlock(), null);
 	}
 
@@ -79,19 +82,17 @@ public class ShellInterface
 	{
 		IzaBasic returnValue= new IzaNone();
 		IzaBasic view = new IzaNone();
-		IzaBasic value = valueList.get(0);
 		String name;
+		int size;
 
-		if ((value instanceof IzaString) == false){
+		size = valueList.size();
+
+		if (size < 1){
+			System.out.println("引数がおかしいです");
 			return (returnValue);
 		}
-		name = ((IzaString)value).mValue;
 
-		if (mVarsMng.usedName(name) == false){
-			return (returnValue);
-		}
-
-		view = mVarsMng.get(name).getValue();
+		view = valueList.get(0);
 		if ((view instanceof IzaView) == false){
 			return (returnValue);
 		}
@@ -101,45 +102,70 @@ public class ShellInterface
 			returnValue = new IzaFloat(x);
 		}
 		else if (funcName.equals(FUNC_SET_X)){
-			float x = ((IzaFloat)valueList.get(1)).mValue;
-			((IzaView)view).setX(x);
-			returnValue = new IzaFloat();
+			if (size < 2){
+				System.out.println("引数がおかしいです");
+			}
+			else {
+				float x = ((IzaFloat)valueList.get(1)).mValue;
+				((IzaView)view).setX(x);
+				returnValue = new IzaFloat();
+			}
 		}
 		else if (funcName.equals(FUNC_GET_Y)){
 			float y = ((IzaView)view).getY();
 			returnValue = new IzaFloat(y);
 		}
 		else if (funcName.equals(FUNC_SET_Y)){
-			float y = ((IzaFloat)valueList.get(1)).mValue;
-			((IzaView)view).setY(y);
-			returnValue = new IzaFloat();
+			if (size < 2){
+				System.out.println("引数がおかしいです");
+			}
+			else {
+				float y = ((IzaFloat)valueList.get(1)).mValue;
+				((IzaView)view).setY(y);
+				returnValue = new IzaFloat();
+			}
 		}
 		else if (funcName.equals(FUNC_GET_WIDTH)){
 			float width = ((IzaView)view).getWidth();
 			returnValue = new IzaFloat(width);
 		}
 		else if (funcName.equals(FUNC_SET_WIDTH)){
-			float width = ((IzaFloat)valueList.get(1)).mValue;
-			((IzaView)view).setWidth(width);
-			returnValue = new IzaFloat();
+			if (size < 2){
+				System.out.println("引数がおかしいです");
+			}
+			else {
+				float width = ((IzaFloat)valueList.get(1)).mValue;
+				((IzaView)view).setWidth(width);
+				returnValue = new IzaFloat();
+			}
 		}
 		else if (funcName.equals(FUNC_GET_HEIGHT)){
 			float height = ((IzaView)view).getHeight();
 			returnValue = new IzaFloat(height);
 		}
 		else if (funcName.equals(FUNC_SET_HEIGHT)){
-			float height = ((IzaFloat)valueList.get(1)).mValue;
-			((IzaView)view).setHeight(height);
-			returnValue = new IzaFloat();
+			if (size < 2){
+				System.out.println("引数がおかしいです");
+			}
+			else {
+				float height = ((IzaFloat)valueList.get(1)).mValue;
+				((IzaView)view).setHeight(height);
+				returnValue = new IzaFloat();
+			}
 		}
 		else if (funcName.equals(FUNC_GET_TEXT)){
 			String text = ((IzaView)view).getText();
 			returnValue = new IzaString(text);
 		}
 		else if (funcName.equals(FUNC_SET_TEXT)){
-			String text = ((IzaString)valueList.get(1)).mValue;
-			((IzaView)view).setText(text);
-			returnValue = new IzaString();
+			if (size < 2){
+				System.out.println("引数がおかしいです");
+			}
+			else {
+				String text = ((IzaString)valueList.get(1)).mValue;
+				((IzaView)view).setText(text);
+				returnValue = new IzaString();
+			}
 		}
 
 		return (returnValue);

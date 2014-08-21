@@ -11,7 +11,7 @@ public class ShellVisitor implements ExprParserVisitor
 	private final ShellVarsManager mVarsMng;
 	private final ShellFuncs mFuncs;
 	private final ShellInterface mInterface;
-	private final Stack<String> mFuncsNameStack;
+	public static Stack<String> cFuncsNameStack;
 	private boolean mBreak;
 	private boolean mContinue;
 	private boolean mReturn;
@@ -24,7 +24,7 @@ public class ShellVisitor implements ExprParserVisitor
 		mVarsMng = ShellVarsManager.getInstance();
 		mFuncs = ShellFuncs.getInstance();
 		mInterface = ShellInterface.getInstance();
-		mFuncsNameStack = new Stack<String>();
+		cFuncsNameStack = new Stack<String>();
 		mBreak = false;
 		mContinue = false;
 		mReturn = false;
@@ -107,10 +107,10 @@ public class ShellVisitor implements ExprParserVisitor
 			}
 		}
 
-		String name = mFuncsNameStack.peek();
+		String name = cFuncsNameStack.peek();
 		int type = mFuncs.get(name).getType();
 
-		mFuncsNameStack.pop();
+		cFuncsNameStack.pop();
 		mVarsMng.outFunc();
 
 		if (mReturn == true){
@@ -153,11 +153,7 @@ public class ShellVisitor implements ExprParserVisitor
 			valueList.add(value);
 		}
 
-		if (shellFunc.checkArgs(valueList) == false){
-			return (null);
-		}
-
-		mFuncsNameStack.push(name);
+		cFuncsNameStack.push(name);
 		mVarsMng.intoFunc();
 		if (size >= 2){
 			IzaBasic returnValue;
@@ -165,6 +161,12 @@ public class ShellVisitor implements ExprParserVisitor
 			if ((returnValue instanceof IzaNone) == false){
 				return (returnValue);
 			}
+		}
+
+		if (shellFunc.checkArgs(valueList) == false){
+			cFuncsNameStack.pop();
+			mVarsMng.outFunc();
+			return (null);
 		}
 
 		for (int i = 0; i < valueList.size(); i++){
@@ -627,13 +629,24 @@ public class ShellVisitor implements ExprParserVisitor
 		if (mVarsMng.usedName(name)){
 			IzaBasic value;
 			if (size == 0){
-				value = mVarsMng.get(name).getValue().clone();
+				if (mVarsMng.get(name).getValue() instanceof IzaView){
+					value = mVarsMng.get(name).getValue();
+				}
+				else {
+					value = mVarsMng.get(name).getValue().clone();
+				}
 			}
 			else {
 				ArrayList<Integer> indexList;
 				IzaArray izaArray = (IzaArray)mVarsMng.get(name).getValue();
 				indexList = (ArrayList<Integer>)node.jjtGetChild(0).jjtAccept(this, null);
-				value = izaArray.getValue(indexList).clone();
+
+				if (izaArray.getValue(indexList) instanceof IzaView){
+					value = izaArray.getValue(indexList);
+				}
+				else {
+					value = izaArray.getValue(indexList).clone();
+				}
 			}
 
 			return (value);
