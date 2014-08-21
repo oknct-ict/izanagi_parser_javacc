@@ -37,11 +37,13 @@ TOKEN:
 	|	<ENDSELECT: "End Select">
 	|	<DIM: "Dim">
 	|	<AS: "as">
+	|	<PARTS: "Parts">
+	|	<ON: "on">
 	|	<RETURN: "Return">
 	|	<BREAK: "Break">
 	|	<CONTINUE: "Continue">
 	|	<PRINT: "Print">
-	|	<TYPE: ("Integer" | "Float" | "String")>
+	|	<TYPE: ("Integer" | "Float" | "String" | "Button")>
 }
 TOKEN:
 {
@@ -73,7 +75,11 @@ TOKEN:
 	|	<RPAREN: ")">
 	|	<LBRACKET: "[">
 	|	<RBRACKET: "]">
+	|	<LBLOCK: "{">
+	|	<RBLOCK: "}">
 	|	<COMMA: ",">
+	|	<DOT: ".">
+	|	<SEMICOLON: ";">
 	|	<STR_START: "\""> : IN_STR
 	|   <INTEGER: (["0" - "9"])+>
 	|	<FLOAT: (["0" - "9"])+ "." (["0" - "9"])+>
@@ -109,25 +115,25 @@ ASTStart Start():
 void Stmts():
 {}
 {
-	(Stmt())+
+	(Stmt())*
 }
 
 void Block():
 {}
 {
-	(Stmt())+
+	(Stmt())*
 }
 
 void WhileBlock():
 {}
 {
-	(Stmt())+
+	(Stmt())*
 }
 
 void FuncBlock():
 {}
 {
-	(Stmt())+
+	(Stmt())*
 }
 
 void Arguments():
@@ -148,16 +154,17 @@ void Argument():
 void Stmt():
 {}
 {
-		DefFunc()
-	|	IfStmt() 
-	|	WhileStmt()
-	|	SelectStmt()
-	|	DimStmt() 
-	|	BreakStmt()
-	|	ContinueStmt()
-	|	PrintStmt()
-	|	LOOKAHEAD(2) ReturnStmt()
-	|	LOOKAHEAD(2) CallFunc()
+		DefFunc()    
+	|	IfStmt()     
+	|	WhileStmt()  
+	|	SelectStmt() 
+	|	PartsStmt() 
+	|	DimStmt()    
+	|	BreakStmt()  
+	|	ContinueStmt() 
+	|	PrintStmt()    
+	|	LOOKAHEAD(2) ReturnStmt() 
+	|	LOOKAHEAD(2) CallFunc()   
 	|	LOOKAHEAD(2) Expression() 
 }
 
@@ -209,6 +216,16 @@ void SelectStmt():
 		(<CASEELSE>  <COLON>
 			Block())?
 	<ENDSELECT>
+}
+
+void PartsStmt():
+{}
+{
+	<PARTS> Identifier() <LBLOCK>
+		(<FUNC> FuncName() <LPAREN> <RPAREN> <ON> Identifier() 
+			FuncBlock()
+		<ENDFUNC>)*
+	<RBLOCK>
 }
 
 void DimStmt():

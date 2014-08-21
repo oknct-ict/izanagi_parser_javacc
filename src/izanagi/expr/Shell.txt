@@ -1,3 +1,0 @@
-Dim abc as Integer
-abc = 0
-abc = abc + 1

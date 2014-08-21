@@ -132,6 +132,10 @@ public class IzaNone implements IzaBasic
 				result = toIzaArray();
 				break;
 
+			case TYPE_BUTTON:
+				result = toIzaButton();
+				break;
+
 			default:
 				System.out.println("許されないキャストです");
 				return (null);
@@ -163,6 +167,11 @@ public class IzaNone implements IzaBasic
 	public IzaBasic toIzaArray()
 	{
 		IzaArray value = new IzaArray();
+		return (value);
+	}
+	public IzaBasic toIzaButton()
+	{
+		IzaButton value = new IzaButton();
 		return (value);
 	}
 

@@ -1,0 +1,19 @@
+
+Dim button as Button
+
+Function sum(a as Integer, b as Integer) as Integer
+	Return (a + b)
+End Function
+
+Parts button {
+	Function on_click () on Click
+		Print "Hello, World"
+	End Function
+}
+
+stdSetX(button, 1.0)
+stdSetY(button, 1.0)
+stdSetWidth(button, 1.0)
+stdSetHeight(button, 1.0)
+
+Print stdGetX(button)

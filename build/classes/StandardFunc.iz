@@ -1,0 +1,24 @@
+
+
+Function stdNew(id as String, type as Integer,  x as Float, y as Float, width as Float, height as Float) as Integer
+End Function
+
+Function stdGetX(id as String) as Integer
+End Function
+Function stdSetX(id as String, x as Float) as Float
+End Function
+
+Function stdGetY(id as String) as Integer
+End Function
+Function stdSetY(id as String, y as Float) as Float
+End Function
+
+Function stdGetWidth(id as String) as Integer
+End Function
+Function stdSetWidth(id as String, width as Float) as Float 
+End Function
+
+Function stdGetHeight(id as String) as Integer
+End Function
+Function stdSetHeight(id as String, height as Float) as Float
+End Function
