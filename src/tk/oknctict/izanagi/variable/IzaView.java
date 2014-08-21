@@ -6,6 +6,7 @@ import tk.oknctict.izanagi.shell.*;
 
 public abstract class  IzaView implements IzaBasic
 {
+	protected ShellInterface mShellInterface;
 	protected int mType;
 	private float mX, mY;
 	private float mWidth, mHeight;
@@ -44,6 +45,7 @@ public abstract class  IzaView implements IzaBasic
 	public void setX(float x)
 	{
 		mX = x;
+		mShellInterface.updateView(this);
 	}
 
 	public float getY()
@@ -53,6 +55,7 @@ public abstract class  IzaView implements IzaBasic
 	public void setY(float y)
 	{
 		mY = y;
+		mShellInterface.updateView(this);
 	}
 
 	public float getWidth()
@@ -62,6 +65,7 @@ public abstract class  IzaView implements IzaBasic
 	public void setWidth(float width)
 	{
 		mWidth = width;
+		mShellInterface.updateView(this);
 	}
 
 	public float getHeight()
@@ -71,6 +75,7 @@ public abstract class  IzaView implements IzaBasic
 	public void setHeight(float height)
 	{
 		mHeight = height;
+		mShellInterface.updateView(this);
 	}
 
 	public String getText()
@@ -80,6 +85,7 @@ public abstract class  IzaView implements IzaBasic
 	public void setText(String text)
 	{
 		mText = text;
+		mShellInterface.updateView(this);
 	}
 
 	public String toString()
