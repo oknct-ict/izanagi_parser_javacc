@@ -69,6 +69,15 @@ public class ShellInterface
 		mFuncs.set(funcName, func);
 	}
 
+	public void createView(IzaView view)
+	{
+
+	}
+	public void updateView(IzaView view)
+	{
+
+	}
+
 	public void callFunc(String funcName)
 	{
 		ShellFunc func = mFuncs.get(funcName);
